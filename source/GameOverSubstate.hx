@@ -34,7 +34,7 @@ class GameOverSubstate extends MusicBeatSubstate {
 		FlxG.camera.scroll.set();
 		FlxG.camera.target = null;
 
-		bf.playAnim('firstDeath');
+		//bf.playAnim('firstDeath');
 	}
 
 	override function update(elapsed:Float) {
@@ -77,7 +77,7 @@ class GameOverSubstate extends MusicBeatSubstate {
 	function endBullshit():Void {
 		if (!isEnding) {
 			isEnding = true;
-			bf.playAnim('deathConfirm', true);
+			//bf.playAnim('deathConfirm', true);
 			FlxG.sound.music.stop();
 			FlxG.sound.play(Paths.music('gameOverEnd' + stageSuffix, 'shared'));
 			new FlxTimer().start(0.7, function(tmr:FlxTimer) {

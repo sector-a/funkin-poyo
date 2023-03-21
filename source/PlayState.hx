@@ -227,15 +227,14 @@ class PlayState extends MusicBeatState {
 				{
 					defaultCamZoom = 0.6;
 					curStage = 'cityvspoyo';
-					var bg:FlxSprite = new FlxSprite().loadGraphic(Paths.image('bg', 'poyo'));
+					var bg:FlxSprite = new FlxSprite(-200, -450).loadGraphic(Paths.image('bg', 'poyo'));
 					bg.antialiasing = true;
 					add(bg);
 					
 					speakers = new FlxSprite();
 					speakers.frames = Paths.getSparrowAtlas('Speaker', 'poyo');
 					speakers.antialiasing = true;
-					speakers.animation.addByPrefix('idle', 'SpeakerLol', 24, true);
-					speakers.animation.play('idle');
+					speakers.animation.addByPrefix('bop', 'SpeakerLol', 24, true);
 					add(speakers);
 				}
 			default:
@@ -249,8 +248,7 @@ class PlayState extends MusicBeatState {
 					speakers = new FlxSprite();
 					speakers.frames = Paths.getSparrowAtlas('Speaker', 'poyo');
 					speakers.antialiasing = true;
-					speakers.animation.addByPrefix('idle', 'SpeakerLol', 24, true);
-					speakers.animation.play('idle');
+					speakers.animation.addByPrefix('bop', 'SpeakerLol', 24, true);
 					add(speakers);
 				}
 		}
@@ -264,24 +262,23 @@ class PlayState extends MusicBeatState {
 
 		gf = new Character(400, 130, gfVersion);
 		gf.scrollFactor.set(0.95, 0.95);
-
 		dad = new Character(100, 100, SONG.player2);
+		boyfriend = new Boyfriend(770, 450, SONG.player1);
 
 		var camPos:FlxPoint = new FlxPoint(dad.getGraphicMidpoint().x, dad.getGraphicMidpoint().y);
 
-		switch (SONG.player2) {
-			case 'gf':
-				dad.setPosition(gf.x, gf.y);
-				gf.visible = false;
-				if (isStoryMode) {
-					camPos.x += 600;
-					tweenCamIn();
-				}
-			case 'dad':
-				camPos.x += 400;
+		switch (curStage)
+		{
+			case 'cityvspoyo':
+				dad.x += 240;
+				dad.y += 30;
+				gf.x += 400;
+				gf.y += -110;
+				boyfriend.x += -100;
+				boyfriend.y += -440;
+				speakers.x = gf.x - 130;
+				speakers.y = gf.y + 70;
 		}
-
-		boyfriend = new Boyfriend(770, 450, SONG.player1);
 		if (!hideGf)
 			add(gf);
 		add(dad);
@@ -1662,13 +1659,13 @@ class PlayState extends MusicBeatState {
 
 			switch (direction) {
 				case 0:
-					boyfriend.playAnim('singLEFTmiss', true);
+					//boyfriend.playAnim('singLEFTmiss', true);
 				case 1:
-					boyfriend.playAnim('singDOWNmiss', true);
+					//boyfriend.playAnim('singDOWNmiss', true);
 				case 2:
-					boyfriend.playAnim('singUPmiss', true);
+					//boyfriend.playAnim('singUPmiss', true);
 				case 3:
-					boyfriend.playAnim('singRIGHTmiss', true);
+					//boyfriend.playAnim('singRIGHTmiss', true);
 			}
 
 			updateAccuracy();
@@ -1804,6 +1801,9 @@ class PlayState extends MusicBeatState {
 			else if (curBeat % gfSpeed == 0 && dad.curCharacter == 'gf')
 				dad.dance();
 		}
+
+		if(curStage == 'cityvspoyo')
+			speakers.animation.play('bop');
 
 		if (camZooming && FlxG.camera.zoom < 1.35 && curBeat % 4 == 0) {
 			FlxG.camera.zoom += 0.015;
