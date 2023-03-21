@@ -137,8 +137,7 @@ class PlayState extends MusicBeatState {
 	var funneEffect:FlxSprite;
 	var inCutscene:Bool = false;
 
-	public static var repPresses:Int = 0;
-	public static var repReleases:Int = 0;
+	var speakers:FlxSprite;
 
 	public static var timeCurrently:Float = 0;
 	public static var timeCurrentlyR:Float = 0;
@@ -224,32 +223,35 @@ class PlayState extends MusicBeatState {
 		Conductor.changeBPM(SONG.bpm);
 
 		switch (SONG.stage) {
+			case 'cityvspoyo':
+				{
+					defaultCamZoom = 0.6;
+					curStage = 'cityvspoyo';
+					var bg:FlxSprite = new FlxSprite().loadGraphic(Paths.image('bg', 'poyo'));
+					bg.antialiasing = true;
+					add(bg);
+					
+					speakers = new FlxSprite();
+					speakers.frames = Paths.getSparrowAtlas('Speaker', 'poyo');
+					speakers.antialiasing = true;
+					speakers.animation.addByPrefix('idle', 'SpeakerLol', 24, true);
+					speakers.animation.play('idle');
+					add(speakers);
+				}
 			default:
 				{
-					defaultCamZoom = 0.9;
-					curStage = 'stage';
-					var bg:FlxSprite = new FlxSprite(-600, -200).loadGraphic(Paths.image('stageback', 'shared'));
+					defaultCamZoom = 0.6;
+					curStage = 'cityvspoyo';
+					var bg:FlxSprite = new FlxSprite().loadGraphic(Paths.image('bg', 'poyo'));
 					bg.antialiasing = true;
-					bg.scrollFactor.set(0.9, 0.9);
-					bg.active = false;
 					add(bg);
-
-					var stageFront:FlxSprite = new FlxSprite(-650, 600).loadGraphic(Paths.image('stagefront', 'shared'));
-					stageFront.setGraphicSize(Std.int(stageFront.width * 1.1));
-					stageFront.updateHitbox();
-					stageFront.antialiasing = true;
-					stageFront.scrollFactor.set(0.9, 0.9);
-					stageFront.active = false;
-					add(stageFront);
-
-					var stageCurtains:FlxSprite = new FlxSprite(-500, -300).loadGraphic(Paths.image('stagecurtains', 'shared'));
-					stageCurtains.setGraphicSize(Std.int(stageCurtains.width * 0.9));
-					stageCurtains.updateHitbox();
-					stageCurtains.antialiasing = true;
-					stageCurtains.scrollFactor.set(1.3, 1.3);
-					stageCurtains.active = false;
-
-					add(stageCurtains);
+					
+					speakers = new FlxSprite();
+					speakers.frames = Paths.getSparrowAtlas('Speaker', 'poyo');
+					speakers.antialiasing = true;
+					speakers.animation.addByPrefix('idle', 'SpeakerLol', 24, true);
+					speakers.animation.play('idle');
+					add(speakers);
 				}
 		}
 
@@ -1819,15 +1821,5 @@ class PlayState extends MusicBeatState {
 
 		if (!boyfriend.animation.curAnim.name.startsWith("sing"))
 			boyfriend.playAnim('idle');
-
-		if (curBeat % 8 == 7 && curSong == 'Bopeebo') {
-			boyfriend.playAnim('hey', true);
-			gf.playAnim('cheer', true);
-		}
-
-		if (curBeat % 16 == 15 && SONG.song == 'Tutorial' && dad.curCharacter == 'gf' && curBeat > 16 && curBeat < 48) {
-			boyfriend.playAnim('hey', true);
-			dad.playAnim('cheer', true);
-		}
 	}
 }

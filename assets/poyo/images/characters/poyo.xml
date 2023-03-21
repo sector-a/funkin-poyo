@@ -1,0 +1,16 @@
+<?xml version='1.0' encoding='utf-8'?>
+<TextureAtlas imagePath="poyo.png">
+<SubTexture name="down0000" x="0" y="1203" width="430" height="553" frameX="-90" frameY="-89" frameWidth="640" frameHeight="640" />
+<SubTexture name="down0001" x="430" y="1203" width="435" height="551" frameX="-89" frameY="-91" frameWidth="640" frameHeight="640" />
+<SubTexture name="idle0000" x="860" y="613" width="294" height="582" frameX="-161" frameY="-9" frameWidth="597" frameHeight="588" />
+<SubTexture name="idle0001" x="1415" y="0" width="282" height="581" frameX="-168" frameY="-10" frameWidth="597" frameHeight="588" />
+<SubTexture name="idle0002" x="577" y="613" width="283" height="587" frameX="-170" frameY="-3" frameWidth="597" frameHeight="588" />
+<SubTexture name="idle0003" x="289" y="613" width="287" height="589" frameX="-170" frameY="-1" frameWidth="597" frameHeight="588" />
+<SubTexture name="idle0004" x="0" y="613" width="289" height="590" frameX="-170" frameY="0" frameWidth="597" frameHeight="588" />
+<SubTexture name="left0000" x="1697" y="577" width="355" height="575" frameX="-151" frameY="-67" frameWidth="640" frameHeight="640" />
+<SubTexture name="left0001" x="1697" y="0" width="358" height="577" frameX="-144" frameY="-65" frameWidth="640" frameHeight="640" />
+<SubTexture name="right0000" x="1058" y="0" width="357" height="595" frameX="-133" frameY="-47" frameWidth="640" frameHeight="640" />
+<SubTexture name="right0001" x="701" y="0" width="357" height="596" frameX="-133" frameY="-46" frameWidth="640" frameHeight="640" />
+<SubTexture name="up0000" x="0" y="0" width="348" height="613" frameX="-159" frameY="-29" frameWidth="640" frameHeight="640" />
+<SubTexture name="up0001" x="348" y="0" width="353" height="608" frameX="-156" frameY="-33" frameWidth="640" frameHeight="640" />
+</TextureAtlas>

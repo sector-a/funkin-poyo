@@ -55,7 +55,7 @@ class Character extends FlxSprite {
 				playAnim('danceRight');
 
 				barColor = 0xFFA2044B;
-			case 'dad':
+			case 'poyo':
 				frames = Paths.getSparrowAtlas('characters/DADDY_DEAREST', 'shared');
 				animation.addByPrefix('idle', 'Dad idle dance', 24);
 				animation.addByPrefix('singUP', 'Dad Sing Note UP', 24);
