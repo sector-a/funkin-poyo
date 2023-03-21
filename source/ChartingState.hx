@@ -2,7 +2,7 @@ package;
 
 import flixel.addons.ui.FlxUIText;
 import Conductor.BPMChangeEvent;
-import Section.SwagSection;
+import Song.SwagSection;
 import Song.SwagSong;
 import flash.geom.Rectangle;
 import flixel.FlxG;

@@ -1,11 +1,19 @@
 package;
 
-import Section.SwagSection;
 import haxe.Json;
-import haxe.format.JsonParser;
 import lime.utils.Assets;
 
 using StringTools;
+
+typedef SwagSection = {
+	var sectionNotes:Array<Dynamic>;
+	var lengthInSteps:Int;
+	var typeOfSection:Int;
+	var mustHitSection:Bool;
+	var bpm:Float;
+	var changeBPM:Bool;
+	var altAnim:Bool;
+}
 
 typedef SwagSong = {
 	var song:String;
@@ -44,12 +52,6 @@ class Song {
 	public static function loadFromJson(jsonInput:String, ?folder:String):SwagSong {
 		trace(jsonInput);
 		var folderLowercase = StringTools.replace(folder, " ", "-").toLowerCase();
-		switch (folderLowercase) {
-			case 'dad-battle':
-				folderLowercase = 'dadbattle';
-			case 'philly-nice':
-				folderLowercase = 'philly';
-		}
 
 		trace('loading ' + folderLowercase + '/' + jsonInput.toLowerCase());
 
