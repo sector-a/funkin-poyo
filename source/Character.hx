@@ -15,6 +15,9 @@ class Character extends FlxSprite {
 
 	public var holdTimer:Float = 0;
 
+	public var camPos:Array<Float> = [0, 0];
+	public var camZoom:Float = 1;
+
 	public function new(x:Float, y:Float, ?character:String = "bf", ?isPlayer:Bool = false) {
 		super(x, y);
 
@@ -56,6 +59,7 @@ class Character extends FlxSprite {
 				playAnim('idle');
 
 				barColor = 0xFFaf66ce;
+				camPos = [200, -150];
 			case 'bf':
 				frames = Paths.getSparrowAtlas('characters/newbfpoyo', 'poyo');
 
@@ -78,6 +82,7 @@ class Character extends FlxSprite {
 				flipX = true;
 
 				barColor = 0xFF31b0d1;
+				camPos = [-100, 0];
 		}
 
 		dance();
