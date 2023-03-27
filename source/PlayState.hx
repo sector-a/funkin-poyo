@@ -324,7 +324,7 @@ class PlayState extends MusicBeatState {
 		generateSong(SONG.song);
 
 		camFollow = new FlxObject(0, 0, 1, 1);
-		FlxG.camera.zoom = dad.camZoom;
+		camGame.zoom = dad.camZoom;
 		camFollow.setPosition(dad.getGraphicMidpoint().x + dad.camPos[0], dad.getGraphicMidpoint().y + dad.camPos[1]);
 
 		if (prevCamFollow != null) {
@@ -1011,12 +1011,12 @@ class PlayState extends MusicBeatState {
 		if (generatedMusic && PlayState.SONG.notes[Std.int(curStep / 16)] != null) {
 			if (camFollow.x != dad.getMidpoint().x + dad.camPos[0] && !PlayState.SONG.notes[Std.int(curStep / 16)].mustHitSection)
 				camFollow.setPosition(dad.getMidpoint().x + dad.camPos[0], dad.getMidpoint().y + dad.camPos[1]);
-			if (FlxG.camera.zoom != dad.camZoom && !PlayState.SONG.notes[Std.int(curStep / 16)].mustHitSection)
+			if (camGame.zoom != dad.camZoom && !PlayState.SONG.notes[Std.int(curStep / 16)].mustHitSection)
 				FlxTween.tween(FlxG.camera, {zoom: dad.camZoom}, 0.5);
 
 			if (camFollow.x != boyfriend.getMidpoint().x + boyfriend.camPos[0] && PlayState.SONG.notes[Std.int(curStep / 16)].mustHitSection)
 				camFollow.setPosition(boyfriend.getMidpoint().x + boyfriend.camPos[0], boyfriend.getMidpoint().y + boyfriend.camPos[1]);
-			if (FlxG.camera.zoom != boyfriend.camZoom && PlayState.SONG.notes[Std.int(curStep / 16)].mustHitSection)
+			if (camGame.zoom != boyfriend.camZoom && PlayState.SONG.notes[Std.int(curStep / 16)].mustHitSection)
 				FlxTween.tween(FlxG.camera, {zoom: boyfriend.camZoom}, 0.5);
 		}
 
