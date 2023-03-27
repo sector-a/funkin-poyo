@@ -116,6 +116,7 @@ class MusicBeatSubstate extends FlxSubState {
 		if (hitbox != null)
 			hitbox = FlxDestroyUtil.destroy(hitbox);
 		#end
+	}
 
 	inline function get_controls():Controls
 		return PlayerSettings.player1.controls;
