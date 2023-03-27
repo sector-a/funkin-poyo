@@ -18,6 +18,7 @@
 
 	<classpath name="source" />
 
+	<assets path="mobile" rename="assets/mobile" if="mobile" /> <!-- in order to not have the mobile assets in another builds -saw -->
 	<assets path="assets/preload" rename="assets" exclude="*.ogg" if="web"/>
 	<assets path="assets/preload" rename="assets" exclude="*.mp3" unless="web"/>
 	<define name="PRELOAD_ALL" unless="web" />
@@ -51,15 +52,36 @@
 	<haxelib name="flixel-ui" />
 	<haxelib name="faxe" if='switch'/>
 	<haxelib name="discord_rpc" if="windows"/>
+	<haxelib name="extension-androidtools" if="android" />
 	<haxelib name="hxCodec" if="desktop || android" unless="web" />
 
 	<haxedef name="HXC_DEBUG_TRACE" if="debug" />
 	<haxedef name="FLX_NO_FOCUS_LOST_SCREEN" />
 	<haxedef name="FLX_NO_DEBUG" unless="debug" />
 	<haxedef name="NAPE_RELEASE_BUILD" unless="debug" />
+	<haxedef name="HXCPP_CHECK_POINTER" />
+	<haxedef name="HXCPP_STACK_LINE" />
+	<haxedef name="HXCPP_STACK_TRACE" />
+
 	<haxedef name="no-deprecation-warnings" />
 	<haxeflag name="--dce full" if="release" />
 	
 	<icon path="icon16.png" size='16'/>
 	<icon path="icon.png" />
+
+	<section if="android">
+		<config>
+			<!--Gradle-->
+			<android gradle-version="7.4.2" gradle-plugin="7.3.1" />
+
+			<!--Target SDK-->
+			<android target-sdk-version="29" if="${lime &lt; 8.1.0}" />
+		</config>
+	</section>
+
+	<section if="ios">
+		<!--Dependency--> 
+		<dependency name="Metal.framework" />
+		<dependency name="WebKit.framework" />
+	</section>
 </project>

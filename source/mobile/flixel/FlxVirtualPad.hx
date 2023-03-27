@@ -16,21 +16,19 @@ enum FlxDPadMode {
 	UP_LEFT_RIGHT;
 	LEFT_FULL;
 	RIGHT_FULL;
-	BOTH_FULL;
 	NONE;
 }
 
 enum FlxActionMode {
-	A;
-	B;
-	A_B;
-	A_B_C;
-	A_B_E;
+ 	A;
+ 	B;
+ 	A_B;
+ 	A_B_C;
 	A_B_X_Y;
-	A_B_C_X_Y;
-	A_B_C_X_Y_Z;
-	A_B_C_D_V_X_Y_Z;
-	NONE;
+ 	A_B_C_X_Y;
+ 	A_B_C_X_Y_Z;
+ 	A_B_C_D_V_X_Y_Z;
+ 	NONE;
 }
 
 /**
@@ -91,15 +89,6 @@ class FlxVirtualPad extends FlxSpriteGroup {
 				add(buttonLeft = createButton(FlxG.width - 384, FlxG.height - 309, 'left', 0xFF00FF));
 				add(buttonRight = createButton(FlxG.width - 132, FlxG.height - 309, 'right', 0xFF0000));
 				add(buttonDown = createButton(FlxG.width - 258, FlxG.height - 201, 'down', 0x00FFFF));
-			case BOTH_FULL:
-				add(buttonUp = createButton(105, FlxG.height - 345, 'up', 0x00FF00));
-				add(buttonLeft = createButton(0, FlxG.height - 243, 'left', 0xFF00FF));
-				add(buttonRight = createButton(207, FlxG.height - 243, 'right', 0xFF0000));
-				add(buttonDown = createButton(105, FlxG.height - 135, 'down', 0x00FFFF));
-				add(buttonUp2 = createButton(FlxG.width - 258, FlxG.height - 408, 'up', 0x00FF00));
-				add(buttonLeft2 = createButton(FlxG.width - 384, FlxG.height - 309, 'left', 0xFF00FF));
-				add(buttonRight2 = createButton(FlxG.width - 132, FlxG.height - 309, 'right', 0xFF0000));
-				add(buttonDown2 = createButton(FlxG.width - 258, FlxG.height - 201, 'down', 0x00FFFF));
 			case NONE: // do nothing
 		}
 
@@ -113,10 +102,6 @@ class FlxVirtualPad extends FlxSpriteGroup {
 				add(buttonA = createButton(FlxG.width - 132, FlxG.height - 135, 'a', 0xFF0000));
 			case A_B_C:
 				add(buttonC = createButton(FlxG.width - 384, FlxG.height - 135, 'c', 0x44FF00));
-				add(buttonB = createButton(FlxG.width - 258, FlxG.height - 135, 'b', 0xFFCB00));
-				add(buttonA = createButton(FlxG.width - 132, FlxG.height - 135, 'a', 0xFF0000));
-			case A_B_E:
-				add(buttonE = createButton(FlxG.width - 384, FlxG.height - 135, 'e', 0xFF7D00));
 				add(buttonB = createButton(FlxG.width - 258, FlxG.height - 135, 'b', 0xFFCB00));
 				add(buttonA = createButton(FlxG.width - 132, FlxG.height - 135, 'a', 0xFF0000));
 			case A_B_X_Y:
