@@ -420,6 +420,10 @@ class PlayState extends MusicBeatState {
 		scoreTxt.cameras = [camHUD];
 		botPlayState.cameras = [camHUD];
 
+		#if mobile
+		addHitbox();
+		#end
+
 		startingSong = true;
 	
 		switch (curSong.toLowerCase())

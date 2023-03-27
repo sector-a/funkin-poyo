@@ -192,6 +192,10 @@ class OptionsMenu extends MusicBeatState {
 
 		selectedOption = selectedCat.options[0];
 
+		#if mobile
+		addVirtualPad(RIGHT_FULL, A);
+		#end
+
 		super.create();
 	}
 
