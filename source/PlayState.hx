@@ -287,18 +287,9 @@ class PlayState extends MusicBeatState {
 			notesBgBF.alpha = FlxG.save.data.bgNotesAlpha;
 			notesBgBF.screenCenter(Y);
 			if (FlxG.save.data.middleScroll)
-				notesBgBF.x = 400;
+				notesBgBF.x = (FlxG.width / 2) - (notesBgBF.width / 2);
 
 			add(notesBgBF);
-
-			if (!FlxG.save.data.middleScroll) {
-				var notesBgDad:FlxSprite = new FlxSprite(720, 0).makeGraphic(490, FlxG.height, FlxColor.BLACK);
-				notesBgDad.cameras = [camHUD];
-				notesBgDad.alpha = FlxG.save.data.bgNotesAlpha;
-				notesBgDad.screenCenter(Y);
-
-				add(notesBgDad);
-			}
 		}
 
 		strumLine = new FlxSprite(0, 50).makeGraphic(FlxG.width, 10);
@@ -750,13 +741,11 @@ class PlayState extends MusicBeatState {
 				case 1:
 					playerStrums.add(babyArrow);
 					if (FlxG.save.data.middleScroll)
-						babyArrow.x -= (FlxG.width / 4.75);
+						babyArrow.x = (FlxG.width / 2) - (Note.swagWidth * 2) + (Note.swagWidth * i);
 			}
 
 			babyArrow.animation.play('static');
-			if (FlxG.save.data.middleScroll)
-				babyArrow.x += ((FlxG.width / 2) * player) + 50;
-			else
+			if (!FlxG.save.data.middleScroll)
 				babyArrow.x += ((FlxG.width / 2) * player) + 100;
 
 			cpuStrums.forEach(function(spr:FlxSprite) {
