@@ -294,7 +294,7 @@ class OptionsMenu extends MusicBeatState {
 		left = controls.LEFT_P;
 		up = controls.UP_P;
 		down = controls.DOWN_P;
-		escape = controls.BACK;
+		escape = (controls.BACK #if android || FlxG.android.justReleased.BACK #end);
 		any = FlxG.keys.justPressed.ANY || (gamepad != null ? gamepad.justPressed.ANY : false);
 
 		if (selectedCat != null && !isInCat) {

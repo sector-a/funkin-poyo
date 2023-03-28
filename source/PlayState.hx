@@ -422,6 +422,7 @@ class PlayState extends MusicBeatState {
 
 		#if mobile
 		addHitbox();
+		addHitboxCamera();
 		#end
 
 		startingSong = true;

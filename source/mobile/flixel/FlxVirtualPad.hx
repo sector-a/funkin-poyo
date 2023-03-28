@@ -95,6 +95,7 @@ class FlxVirtualPad extends FlxSpriteGroup {
 		switch (Action) {
 			case A:
 				add(buttonA = createButton(FlxG.width - 132, FlxG.height - 135, 'a', 0xFF0000));
+				#if ios add(buttonB = createButton(FlxG.width - 132, 0, 'b', 0xFF0000)); #end
 			case B:
 				add(buttonB = createButton(FlxG.width - 132, FlxG.height - 135, 'b', 0xFFCB00));
 			case A_B:
