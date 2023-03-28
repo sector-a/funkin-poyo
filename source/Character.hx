@@ -42,19 +42,19 @@ class Character extends FlxSprite {
 
 				barColor = 0xFFA2044B;
 			case 'poyo':
-				frames = Paths.getSparrowAtlas('characters/poyo', 'poyo');
-				scale.set(1.1, 1.1);
-				animation.addByPrefix('idle', 'idle', 16);
-				animation.addByPrefix('singUP', 'up', 16);
-				animation.addByPrefix('singRIGHT', 'right', 16);
-				animation.addByPrefix('singDOWN', 'down', 16);
-				animation.addByPrefix('singLEFT', 'left', 16);
+				frames = Paths.getSparrowAtlas('characters/PoyoAssets', 'poyo');
+
+				animation.addByPrefix('idle', 'poyo_boppin', 24);
+				animation.addByPrefix('singLEFT', 'poyo_left', 24, false);
+				animation.addByPrefix('singDOWN', 'poyo_down', 24, false);
+				animation.addByPrefix('singUP', 'poyo_up', 24, false);
+				animation.addByPrefix('singRIGHT', 'poyo_right', 24, false);
 
 				addOffset('idle');
-				addOffset("singUP", 20, 60);
-				addOffset("singRIGHT", -33, 61);
-				addOffset("singLEFT", 64, 63);
-				addOffset("singDOWN", 12, 62);
+				addOffset("singLEFT", 115, -10);
+				addOffset("singDOWN", 27, -20);
+				addOffset("singUP", 30, 100);
+				addOffset("singRIGHT", -150, 18);
 
 				playAnim('idle');
 
