@@ -1796,4 +1796,9 @@ class PlayState extends MusicBeatState {
 		if (!boyfriend.animation.curAnim.name.startsWith("sing"))
 			boyfriend.playAnim('idle');
 	}
+
+	override function destroy(){
+		instance = null;
+		return super.destroy();
+	}
 }
