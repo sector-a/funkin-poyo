@@ -62,9 +62,9 @@ class MainMenuState extends MusicBeatState {
 		bg.screenCenter(X);
 		if (FlxG.width >= bg.width)
 			bg.setGraphicSize(Std.int(FlxG.width));
-		bg.updateHitbox();
 		else if (FlxG.height >= bg.height)
 			bg.setGraphicSize(null, Std.int(FlxG.height));
+		bg.updateHitbox();
 		bg.screenCenter();
 		bg.antialiasing = true;
 		add(bg);
