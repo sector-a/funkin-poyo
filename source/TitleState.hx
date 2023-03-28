@@ -41,6 +41,10 @@ class TitleState extends MusicBeatState {
 	var wackyImage:FlxSprite;
 
 	override public function create():Void {
+		#if android
+		FlxG.android.preventDefaultKeys = [BACK];
+		#end
+
 		Paths.clearStoredMemory();
 		Paths.clearUnusedMemory();
 

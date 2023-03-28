@@ -946,7 +946,7 @@ class PlayState extends MusicBeatState {
 			scoreTxtChecked = true;
 		}
 
-		if (FlxG.keys.justPressed.ENTER && startedCountdown && canPause) {
+		if ((FlxG.keys.justPressed.ENTER #if android || FlxG.android.justReleased.BACK #end) && startedCountdown && canPause) {
 			persistentUpdate = false;
 			persistentDraw = true;
 			paused = true;
