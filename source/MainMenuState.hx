@@ -60,11 +60,11 @@ class MainMenuState extends MusicBeatState {
 		bg.scrollFactor.x = 0;
 		bg.scrollFactor.y = 0.1;
 		bg.screenCenter(X);
-		if (Lib.current.stage.stageHeight >= 720)
-			bg.setGraphicSize(null, Std.int(FlxG.height));
-		else if (Lib.current.stage.stageWidth >= 1280)
+		if (FlxG.width >= bg.width)
 			bg.setGraphicSize(Std.int(FlxG.width));
 		bg.updateHitbox();
+		else if (FlxG.height >= bg.height)
+			bg.setGraphicSize(null, Std.int(FlxG.height));
 		bg.screenCenter();
 		bg.antialiasing = true;
 		add(bg);
