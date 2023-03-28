@@ -93,7 +93,7 @@ class Character extends FlxSprite {
 
 	override function update(elapsed:Float) {
 		if (!curCharacter.startsWith('bf')) {
-			if (animation.curAnim.name.startsWith('sing')) {
+			if (animation.curAnim != null && animation.curAnim.name.startsWith('sing')) {
 				holdTimer += elapsed;
 			}
 
