@@ -24,8 +24,18 @@ import flixel.util.FlxSort;
 import flixel.util.FlxTimer;
 import flixel.util.FlxStringUtil;
 import lime.utils.Assets;
+#if hxCodec
+#if (hxCodec == "2.6.0") 
+import VideoHandler;
+import VideoSprite;
+#elseif (hxCodec >= "2.6.1") 
 import hxcodec.VideoHandler;
 import hxcodec.VideoSprite;
+#else 
+import vlc.MP4Handler as VideoHandler;
+import vlc.MP4Sprite as VideoSprite;
+#end
+#end
 #if windows
 import Discord.DiscordClient;
 #end
