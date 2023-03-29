@@ -1116,7 +1116,7 @@ class PlayState extends MusicBeatState {
 					if (daNote.isSustainNote) {
 						daNote.x += daNote.width / 2 + 20;
 						daNote.y -= daNote.height / 2 - 50;
-						if (daNote.animation.name.endsWith('end'))
+						if (daNote.animation.curAnim.name.endsWith('end'))
 							daNote.y -= daNote.height / 2 - 67.5;
 
 						if (!FlxG.save.data.botplay) {
@@ -1250,10 +1250,12 @@ class PlayState extends MusicBeatState {
 				}
 			});
 
-			if (dad.specialTransition) {
-				for (animation in noteAnimations) {
-					if (dad.animation.name == animation && dad.animation.finished)
-						dad.dance();
+			for (char in [dad, boyfriend]) {
+				if (char.specialTransition) {
+					for (animation in noteAnimations) {
+						if (char.animation.curAnim.name == animation && char.animation.finished)
+							char.dance();
+					}
 				}
 			}
 		}
@@ -1598,9 +1600,16 @@ class PlayState extends MusicBeatState {
 			}
 		});
 
-		if (boyfriend.holdTimer > Conductor.stepCrochet * 4 * 0.001 && (!holdArray.contains(true) || FlxG.save.data.botplay)) {
-			if (boyfriend.animation.curAnim.name.startsWith('sing') && !boyfriend.animation.curAnim.name.endsWith('miss'))
-				boyfriend.playAnim('idle');
+		if (!boyfriend.specialTransition) {
+			if (boyfriend.holdTimer > Conductor.stepCrochet * 4 * 0.001 && (!holdArray.contains(true) || FlxG.save.data.botplay)) {
+				if (boyfriend.animation.curAnim.name.startsWith('sing') && !boyfriend.animation.curAnim.name.endsWith('miss'))
+					boyfriend.playAnim('idle');
+			}
+		} else {
+			if (boyfriend.animation.curAnim.name == 'idle' && boyfriend.holdTimer > Conductor.stepCrochet * 4 * 0.001 && (!holdArray.contains(true) || FlxG.save.data.botplay)) {
+				if (boyfriend.animation.curAnim.name.startsWith('sing') && !boyfriend.animation.curAnim.name.endsWith('miss'))
+					boyfriend.playAnim('idle');
+			}
 		}
 
 		playerStrums.forEach(function(spr:FlxSprite) {
@@ -1763,7 +1772,7 @@ class PlayState extends MusicBeatState {
 				Conductor.changeBPM(SONG.notes[Math.floor(curStep / 16)].bpm);
 			if (SONG.notes[Math.floor(curStep / 16)].mustHitSection && dad.curCharacter != 'gf' && !dad.specialTransition)
 				dad.dance();
-			if (SONG.notes[Math.floor(curStep / 16)].mustHitSection && dad.curCharacter != 'gf' && dad.specialTransition && dad.animation.name == 'idle')
+			if (SONG.notes[Math.floor(curStep / 16)].mustHitSection && dad.curCharacter != 'gf' && dad.specialTransition && dad.animation.curAnim.name == 'idle')
 				dad.dance();
 			else if (curBeat % gfSpeed == 0 && dad.curCharacter == 'gf')
 				dad.dance();
