@@ -1713,7 +1713,7 @@ class PlayState extends MusicBeatState {
 			} else
 				totalNotesHit += 1;
 
-			boyfriend.playAnim(noteAnimations[Std.int(daNote.noteData)]);
+			boyfriend.playAnim(noteAnimations[Std.int(note.noteData)]);
 
 			playerStrums.forEach(function(spr:FlxSprite) {
 				if (Math.abs(note.noteData) == spr.ID)
