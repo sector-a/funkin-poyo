@@ -276,7 +276,7 @@ class PlayState extends MusicBeatState {
 				dad.x += 240;
 				dad.y += 40;
 				gf.x += 400;
-				gf.y += -100;
+				gf.y += -130;
 				boyfriend.x += -100;
 				boyfriend.y += -450;
 				speakers.x = gf.x - 130;
