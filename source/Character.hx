@@ -42,7 +42,7 @@ class Character extends FlxSprite {
 
 				barColor = 0xFFA2044B;
 			case 'poyo':
-				frames = Paths.getSparrowAtlas('characters/PoyoAssets', 'poyo');
+				frames = Paths.getSparrowAtlas('characters/PoyoSprites', 'poyo');
 
 				animation.addByPrefix('idle', 'poyo_boppin', 24);
 				animation.addByPrefix('singLEFT', 'poyo_left', 24, false);
