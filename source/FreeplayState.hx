@@ -56,6 +56,12 @@ class FreeplayState extends MusicBeatState {
 		#end
 
 		bg = new FlxSprite().loadGraphic(Paths.image('menuBGBlue'));
+		if (FlxG.width >= magenta.width)
+			magenta.setGraphicSize(Std.int(FlxG.width));
+		else if (FlxG.height >= magenta.height)
+			magenta.setGraphicSize(0, Std.int(FlxG.height));
+		bg.updateHitbox();
+		bg.screenCenter();
 		add(bg);
 
 		grpSongs = new FlxTypedGroup<Alphabet>();
