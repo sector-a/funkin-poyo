@@ -1179,7 +1179,7 @@ class PlayState extends MusicBeatState {
 							altAnim = '-alt';
 					}
 
-					dad.playAnim(noteAnimations[Std.int(Math.abs(daNote.noteData)] + altAnim);
+					dad.playAnim(noteAnimations[Std.int(Math.abs(daNote.noteData))] + altAnim);
 
 					cpuStrums.forEach(function(spr:FlxSprite) {
 						if (Math.abs(daNote.noteData) == spr.ID) {
