@@ -112,8 +112,8 @@ class OptionsMenu extends MusicBeatState {
 		else if (FlxG.height >= menuBG.height)
 			menuBG.setGraphicSize(0, Std.int(FlxG.height));
 		menuBG.updateHitbox();
+		menuBG.screenCenter();
 		menuBG.antialiasing = true;
-		menuBG.screenCenter(X);
 		add(menuBG);
 
 		options = [

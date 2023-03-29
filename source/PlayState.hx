@@ -58,7 +58,7 @@ class PlayState extends MusicBeatState {
 	public static var sicks:Int = 0;
 
 	public static var noteBools:Array<Bool> = [false, false, false, false];
-
+	public static var noteAnimations:Array<String> = ['singLEFT', 'singDOWN', 'singUP', 'singRIGHT'];
 	var songLength:Float = 0;
 
 	#if windows
@@ -1179,16 +1179,7 @@ class PlayState extends MusicBeatState {
 							altAnim = '-alt';
 					}
 
-					switch (Math.abs(daNote.noteData)) {
-						case 2:
-							dad.playAnim('singUP' + altAnim, true);
-						case 3:
-							dad.playAnim('singRIGHT' + altAnim, true);
-						case 1:
-							dad.playAnim('singDOWN' + altAnim, true);
-						case 0:
-							dad.playAnim('singLEFT' + altAnim, true);
-					}
+					dad.playAnim(noteAnimations[Std.int(Math.abs(daNote.noteData)] + altAnim);
 
 					cpuStrums.forEach(function(spr:FlxSprite) {
 						if (Math.abs(daNote.noteData) == spr.ID) {
@@ -1258,6 +1249,13 @@ class PlayState extends MusicBeatState {
 					notes.remove(daNote, true);
 				}
 			});
+
+			if (dad.specialTransition) {
+				for (animation in noteAnimations) {
+					if (dad.animation.name == animation && dad.animation.finished)
+						dad.dance();
+				}
+			}
 		}
 
 		cpuStrums.forEach(function(spr:FlxSprite) {
@@ -1706,16 +1704,7 @@ class PlayState extends MusicBeatState {
 			} else
 				totalNotesHit += 1;
 
-			switch (note.noteData) {
-				case 2:
-					boyfriend.playAnim('singUP', true);
-				case 3:
-					boyfriend.playAnim('singRIGHT', true);
-				case 1:
-					boyfriend.playAnim('singDOWN', true);
-				case 0:
-					boyfriend.playAnim('singLEFT', true);
-			}
+			boyfriend.playAnim(noteAnimations[Std.int(daNote.noteData)]);
 
 			playerStrums.forEach(function(spr:FlxSprite) {
 				if (Math.abs(note.noteData) == spr.ID)
@@ -1772,7 +1761,9 @@ class PlayState extends MusicBeatState {
 		if (SONG.notes[Math.floor(curStep / 16)] != null) {
 			if (SONG.notes[Math.floor(curStep / 16)].changeBPM)
 				Conductor.changeBPM(SONG.notes[Math.floor(curStep / 16)].bpm);
-			if (SONG.notes[Math.floor(curStep / 16)].mustHitSection && dad.curCharacter != 'gf')
+			if (SONG.notes[Math.floor(curStep / 16)].mustHitSection && dad.curCharacter != 'gf' && !dad.specialTransition)
+				dad.dance();
+			if (SONG.notes[Math.floor(curStep / 16)].mustHitSection && dad.curCharacter != 'gf' && dad.specialTransition && dad.animation.name == 'idle')
 				dad.dance();
 			else if (curBeat % gfSpeed == 0 && dad.curCharacter == 'gf')
 				dad.dance();

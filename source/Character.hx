@@ -18,6 +18,9 @@ class Character extends FlxSprite {
 	public var camPos:Array<Float> = [0, 0];
 	public var camZoom:Float = 1;
 
+	//FOR POYO LOL
+	public var specialTransition:Bool = false;
+
 	public function new(x:Float, y:Float, ?character:String = "bf", ?isPlayer:Bool = false) {
 		super(x, y);
 
@@ -58,6 +61,7 @@ class Character extends FlxSprite {
 
 				playAnim('idle');
 
+				specialTransition = true;
 				barColor = 0xFFaf66ce;
 				camPos = [200, -150];
 			case 'bf':

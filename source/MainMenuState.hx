@@ -59,7 +59,6 @@ class MainMenuState extends MusicBeatState {
 		bg = new FlxSprite(-100).loadGraphic(Paths.image('menuBG'));
 		bg.scrollFactor.x = 0;
 		bg.scrollFactor.y = 0.1;
-		bg.screenCenter(X);
 		if (FlxG.width >= bg.width)
 			bg.setGraphicSize(Std.int(FlxG.width));
 		else if (FlxG.height >= bg.height)
@@ -75,7 +74,10 @@ class MainMenuState extends MusicBeatState {
 		magenta = new FlxSprite(-80).loadGraphic(Paths.image('menuDesat'));
 		magenta.scrollFactor.x = 0;
 		magenta.scrollFactor.y = 0.1;
-		magenta.setGraphicSize(Std.int(magenta.width * 1.1));
+		if (FlxG.width >= magenta.width)
+			magenta.setGraphicSize(Std.int(FlxG.width));
+		else if (FlxG.height >= magenta.height)
+			magenta.setGraphicSize(0, Std.int(FlxG.height));
 		magenta.updateHitbox();
 		magenta.screenCenter();
 		magenta.visible = false;
