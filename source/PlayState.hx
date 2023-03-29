@@ -292,8 +292,7 @@ class PlayState extends MusicBeatState {
 		Conductor.songPosition = -5000;
 
 		if (FlxG.save.data.bgNotesAlpha != 0) {
-			var notesBgBF:FlxSprite = new FlxSprite(bgX, 0).makeGraphic(490, FlxG.height, FlxColor.BLACK);
-			var bgX:Float = FlxG.save.data.middleScroll ? (FlxG.width / 2) - (notesBgBF.width / 2) : (FlxG.width / 2) + 80;
+			var notesBgBF:FlxSprite = new FlxSprite(FlxG.save.data.middleScroll ? (FlxG.width / 2) - (notesBgBF.width / 2) : (FlxG.width / 2) + 80;, 0).makeGraphic(490, FlxG.height, FlxColor.BLACK);
 			notesBgBF.cameras = [camHUD];
 			notesBgBF.alpha = FlxG.save.data.bgNotesAlpha;
 			add(notesBgBF);
