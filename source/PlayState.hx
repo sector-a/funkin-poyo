@@ -1767,15 +1767,17 @@ class PlayState extends MusicBeatState {
 		if (generatedMusic)
 			notes.sort(FlxSort.byY, (FlxG.save.data.downscroll ? FlxSort.ASCENDING : FlxSort.DESCENDING));
 		
-		if (SONG.notes[Math.floor(curStep / 16)] != null) {
-			if (SONG.notes[Math.floor(curStep / 16)].changeBPM)
-				Conductor.changeBPM(SONG.notes[Math.floor(curStep / 16)].bpm);
-			if (SONG.notes[Math.floor(curStep / 16)].mustHitSection && dad.curCharacter != 'gf' && !dad.specialTransition)
-				dad.dance();
-			if (SONG.notes[Math.floor(curStep / 16)].mustHitSection && dad.curCharacter != 'gf' && dad.specialTransition && dad.animation.curAnim.name == 'idle')
-				dad.dance();
-			else if (curBeat % gfSpeed == 0 && dad.curCharacter == 'gf')
-				dad.dance();
+		if (curBeat % 2 == 0) {
+			if (SONG.notes[Math.floor(curStep / 16)] != null) {
+				if (SONG.notes[Math.floor(curStep / 16)].changeBPM)
+					Conductor.changeBPM(SONG.notes[Math.floor(curStep / 16)].bpm);
+				if (SONG.notes[Math.floor(curStep / 16)].mustHitSection && dad.curCharacter != 'gf' && !dad.specialTransition)
+					dad.dance();
+				if (SONG.notes[Math.floor(curStep / 16)].mustHitSection && dad.curCharacter != 'gf' && dad.specialTransition && dad.animation.curAnim.name == 'idle')
+					dad.dance();
+				else if (curBeat % gfSpeed == 0 && dad.curCharacter == 'gf')
+					dad.dance();
+			}
 		}
 
 		if(curStage == 'cityvspoyo')
@@ -1790,7 +1792,7 @@ class PlayState extends MusicBeatState {
 		if (curBeat % gfSpeed == 0)
 			gf.dance();
 
-		if (!boyfriend.animation.curAnim.name.startsWith("sing"))
+		if (curBeat % 2 == 0 && (!boyfriend.specialTransition || boyfriend.specialTransition && boyfriend.animation.curAnim.name == 'idle'))
 			boyfriend.playAnim('idle');
 	}
 
