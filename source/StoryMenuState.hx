@@ -114,9 +114,16 @@ class StoryMenuState extends MusicBeatState {
 			}
 		}
 
-		grpWeekCharacters.add(new MenuCharacter(0, 100, 0.5, false));
-		grpWeekCharacters.add(new MenuCharacter(450, 25, 0.9, true));
-		grpWeekCharacters.add(new MenuCharacter(850, 100, 0.5, true));
+		var dadMenu:MenuCharacter = new MenuCharacter(24, 100, 0.5, false);
+		grpWeekCharacters.add(dadMenu);
+
+		var bfMenu:MenuCharacter = new MenuCharacter(0, 25, 0.9, true);
+		bfMenu.screenCenter(X);
+		grpWeekCharacters.add(bfMenu);
+
+		var gfMenu:MenuCharacter = new MenuCharacter(FlxG.width - 24, 100, 0.5, true);
+		gfMenu.x -= gfMenu.width;
+		grpWeekCharacters.add(gfMenu);
 
 		difficultySelectors = new FlxGroup();
 		add(difficultySelectors);
