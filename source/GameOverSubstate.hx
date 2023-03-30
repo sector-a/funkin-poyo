@@ -31,6 +31,11 @@ class GameOverSubstate extends MusicBeatSubstate {
 		FlxG.sound.play(Paths.sound('fnf_loss_sfx' + stageSuffix, 'shared'));
 		Conductor.changeBPM(100);
 
+		#if mobile
+		addVirtualPad(NONE, A);
+		addVirtualPadCamera();
+		#end
+
 		FlxG.camera.scroll.set();
 		FlxG.camera.target = null;
 
