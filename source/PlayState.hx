@@ -1573,7 +1573,7 @@ class PlayState extends MusicBeatState {
 
 			FlxG.sound.play(Paths.soundRandom('missnote', 1, 3, 'shared'), FlxG.random.float(0.1, 0.2));
 
-			boyfriend.playAnim(noteAnimations[Std.int(direction]) + '-miss', true)
+			boyfriend.playAnim(noteAnimations[Std.int(direction]) + '-miss', true);
 
 			updateAccuracy();
 		}
