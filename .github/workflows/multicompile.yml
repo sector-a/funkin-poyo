@@ -25,6 +25,11 @@ jobs:
       # Runs a set of commands using the runners shell
       - name: Install Haxelib
         run: |
+          sudo apt-get install libvlc-dev
+          sudo apt-get install libvlccore-dev
+          sudo apt-get install glibc-source
+          sudo apt-get install libidn12
+          sudo apt-get install libidn-dev
           haxelib setup ~/haxelib
           haxelib --quiet install hxcpp > /dev/null
           haxe -cp ./actions -D analyzer-optimize -main Main --interp
@@ -101,6 +106,12 @@ jobs:
 
       - name: Setup Android SDK
         uses: android-actions/setup-android@v2
+
+      - name: Setup Android NDK
+        uses: nttld/setup-ndk@main
+        id: setup-ndk
+        with:
+          ndk-version: r21e
 
       - name: Setup Haxe
         uses: krdlab/setup-haxe@master
