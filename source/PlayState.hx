@@ -1179,7 +1179,7 @@ class PlayState extends MusicBeatState {
 							altAnim = '-alt';
 					}
 
-					dad.playAnim(noteAnimations[Std.int(Math.abs(daNote.noteData))] + altAnim);
+					dad.playAnim(noteAnimations[Std.int(Math.abs(daNote.noteData))] + altAnim, true);
 
 					cpuStrums.forEach(function(spr:FlxSprite) {
 						if (Math.abs(daNote.noteData) == spr.ID) {
@@ -1647,7 +1647,7 @@ class PlayState extends MusicBeatState {
 			} else
 				totalNotesHit += 1;
 
-			boyfriend.playAnim(noteAnimations[Std.int(note.noteData)]);
+			boyfriend.playAnim(noteAnimations[Std.int(note.noteData)], true);
 
 			playerStrums.forEach(function(spr:FlxSprite) {
 				if (Math.abs(note.noteData) == spr.ID)
