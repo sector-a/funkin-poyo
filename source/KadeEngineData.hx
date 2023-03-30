@@ -51,6 +51,9 @@ class KadeEngineData {
 		if (FlxG.save.data.botplay == null)
 			FlxG.save.data.botplay = false;
 
+		if (FlxG.save.data.ratings == null)
+			FlxG.save.data.ratings = true;
+
 		if (FlxG.save.data.useGL == null)
 			FlxG.save.data.useGL = true;
 

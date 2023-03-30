@@ -216,6 +216,28 @@ class DownscrollOption extends Option {
 	}
 }
 
+class RatingOption extends Option {
+	public function new(desc:String) {
+		super();
+		description = desc;
+	}
+
+	public override function left():Bool {
+		FlxG.save.data.ratings = !FlxG.save.data.ratings;
+		display = updateDisplay();
+		return true;
+	}
+
+	public override function right():Bool {
+		left();
+		return true;
+	}
+
+	private override function updateDisplay():String {
+		return "Ratings: < " + (FlxG.save.data.ratings ? "Enabled" : "Disabled") + " >";
+	}
+}
+
 class GhostTapOption extends Option {
 	public function new(desc:String) {
 		super();

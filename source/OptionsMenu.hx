@@ -118,22 +118,23 @@ class OptionsMenu extends MusicBeatState {
 
 		options = [
 			new OptionCata(50, 40, "Gameplay", [
+				new MiddleScrollOption("Put your lane in the center or on the right."),
 				new DownscrollOption("Toggle making the notes scroll down rather than up."),
 				//new FreeplayCutscenesOption("Cutscenes like videos and dialogues in Freeplay."),
+				new GhostTapOption("Toggle counting pressing a directional input when no arrow is there as a miss."),
 				new ResetButtonOption("Toggle pressing R to gameover."),
 				new ChangeKeyBindsOption(),
 				new BotPlay("A bot plays for you! (skill issue)")
 			]),
 			new OptionCata(345, 40, "Appearance", [
-				new MiddleScrollOption("Put your lane in the center or on the right."),
 				new NoteSplashes("Adds splashes at sick note hit."),
 				new AccuracyOption("Display accuracy information on the info bar."),
+				new RatingOption("Show your rating whenever you hit a note."),
 				new NotesBGAlpha("Alpha Of The Lane Transparency."),
 				new RatingCounterOption("Display note hit ratings information."),
 				new TimerOption("Display song timer.")
 			]),
 			new OptionCata(640, 40, "Perfomance", [
-				new GhostTapOption("Toggle counting pressing a directional input when no arrow is there as a miss."),
 				new OverlayOption("Show The FPS And Other Debug Info"),
 				new GPUInfo("Shows GPU Info And System Info."),
 				new MemoryInfo("Toggle Memory info for overlay"),

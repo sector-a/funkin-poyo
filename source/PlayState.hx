@@ -1356,9 +1356,11 @@ class PlayState extends MusicBeatState {
 		coolText.y -= 350;
 		coolText.cameras = [camHUD];
 
-		var rating:FlxSprite = new FlxSprite();
-		var score:Float = 350;
+		if (FlxG.save.data.ratings)
+			var rating:FlxSprite = new FlxSprite();
+
 		var daRating = daNote.rating;
+		var score:Float = 350;
 
 		switch (daRating) {
 			case 'shit':
@@ -1398,7 +1400,9 @@ class PlayState extends MusicBeatState {
 		if (daRating != 'shit' || daRating != 'bad') {
 			songScore += Math.round(score);
 			songScoreDef += Math.round(ConvertScore.convertScore(noteDiff));
+		}
 
+		if (FlxG.save.data.ratings) {
 			rating.loadGraphic(Paths.image(daRating, 'shared'));
 			rating.screenCenter();
 			rating.y -= 50;
@@ -1469,9 +1473,9 @@ class PlayState extends MusicBeatState {
 					},
 					startDelay: Conductor.crochet * 0.002
 				});
+			}
 
-				daLoop++;
-			};
+			daLoop++;
 
 			FlxTween.tween(comboSpr, {alpha: 0}, 0.2, {
 				onComplete: function(tween:FlxTween) {
@@ -1481,9 +1485,8 @@ class PlayState extends MusicBeatState {
 				},
 				startDelay: Conductor.crochet * 0.001
 			});
-
-			curSection += 1;
 		}
+		curSection += 1;
 	}
 
 	public function NearlyEquals(value1:Float, value2:Float, unimportantDifference:Float = 10):Bool {
@@ -1520,12 +1523,12 @@ class PlayState extends MusicBeatState {
 			for (note in possibleNotes) {
 				if (pressArray[note.noteData] && !note.isSustainNote) {
 					goodNoteHit(note);
-					break;
+					continue;
 				}
 
 				if (holdArray[note.noteData] && note.isSustainNote) {
 					goodNoteHit(note);
-					break;
+					continue;
 				}
 			}
 		}
@@ -1570,16 +1573,7 @@ class PlayState extends MusicBeatState {
 
 			FlxG.sound.play(Paths.soundRandom('missnote', 1, 3, 'shared'), FlxG.random.float(0.1, 0.2));
 
-			switch (direction) {
-				case 0:
-					//boyfriend.playAnim('singLEFTmiss', true);
-				case 1:
-					//boyfriend.playAnim('singDOWNmiss', true);
-				case 2:
-					//boyfriend.playAnim('singUPmiss', true);
-				case 3:
-					//boyfriend.playAnim('singRIGHTmiss', true);
-			}
+			boyfriend.playAnim(noteAnimations[Std.int(direction]) + '-miss', true)
 
 			updateAccuracy();
 		}
@@ -1722,7 +1716,7 @@ class PlayState extends MusicBeatState {
 		if (curBeat % gfSpeed == 0)
 			gf.dance();
 
-		if (curBeat % 2 == 0 && (!boyfriend.specialTransition && boyfriend.animation.name == 'idle' || boyfriend.specialTransition && boyfriend.animation.curAnim.name == 'idle'))
+		if (curBeat % 2 == 0 && boyfriend.animation.curAnim.name == 'idle')
 			boyfriend.playAnim('idle');
 	}
 
