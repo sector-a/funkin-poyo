@@ -1502,7 +1502,8 @@ class PlayState extends MusicBeatState {
 		var releaseArray:Array<Bool> = [controls.LEFT_R, controls.DOWN_R, controls.UP_R, controls.RIGHT_R];
 
 		var possibleNotes:Array<Note> = [];
-		var pressedNotes:Array<Note> = [];
+		var directionList:Array<Int>
+		var directionsAccounted:Array<Bool> = [false,false,false,false]; // we don't want to do judgments for more than one presses
 
 		if (FlxG.save.data.botplay) {
 			holdArray = [false, false, false, false];
@@ -1511,8 +1512,20 @@ class PlayState extends MusicBeatState {
 		}
 
 		notes.forEachAlive(function(daNote:Note) {
-			if (daNote.mustPress && !daNote.tooLate && !daNote.wasGoodHit && daNote.canBeHit)
-				possibleNotes.push(daNote);
+			if (daNote.mustPress && !daNote.tooLate && !daNote.wasGoodHit && daNote.canBeHit) {
+				if (!directionList.contains(daNote.noteData)) {
+					possibleNotes.push(daNote);
+					directionList.push(daNote.noteData);
+				} else {
+					directionsAccounted[daNote.noteData] = true;
+					for (coolNote in possibleNotes) {
+						if (coolNote.noteData == daNote.noteData && daNote.strumTime < coolNote.strumTime) {
+							possibleNotes.remove(coolNote);
+							possibleNotes.push(daNote);
+						}
+					}
+				}
+			}
 		});
 
 		possibleNotes.sort((a, b) -> Std.int(a.strumTime - b.strumTime));
@@ -1523,7 +1536,6 @@ class PlayState extends MusicBeatState {
 					goodNoteHit(note);
 					continue;
 				}
-
 				if (holdArray[note.noteData] && note.isSustainNote) {
 					goodNoteHit(note);
 					continue;
