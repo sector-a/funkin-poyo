@@ -1356,9 +1356,7 @@ class PlayState extends MusicBeatState {
 		coolText.y -= 350;
 		coolText.cameras = [camHUD];
 
-		if (FlxG.save.data.ratings)
-			var rating:FlxSprite = new FlxSprite();
-
+		var rating:FlxSprite = new FlxSprite();
 		var daRating = daNote.rating;
 		var score:Float = 350;
 
