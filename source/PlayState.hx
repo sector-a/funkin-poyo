@@ -1500,105 +1500,35 @@ class PlayState extends MusicBeatState {
 		var pressArray:Array<Bool> = [controls.LEFT_P, controls.DOWN_P, controls.UP_P, controls.RIGHT_P];
 		var releaseArray:Array<Bool> = [controls.LEFT_R, controls.DOWN_R, controls.UP_R, controls.RIGHT_R];
 
+		var possibleNotes:Array<Note> = [];
+		var pressedNotes:Array<Note> = [];
+
 		if (FlxG.save.data.botplay) {
 			holdArray = [false, false, false, false];
 			pressArray = [false, false, false, false];
 			releaseArray = [false, false, false, false];
 		}
-		
-		if (holdArray.contains(true) && generatedMusic) {
-			notes.forEachAlive(function(daNote:Note) {
-				if (daNote.isSustainNote && daNote.canBeHit && daNote.mustPress && holdArray[daNote.noteData])
-					goodNoteHit(daNote);
-			});
-		}
-
-		if (pressArray.contains(true) && generatedMusic) {
-			boyfriend.holdTimer = 0;
-
-			var possibleNotes:Array<Note> = [];
-			var directionList:Array<Int> = [];
-			var dumbNotes:Array<Note> = [];
-			var directionsAccounted:Array<Bool> = [false, false, false, false];
-
-			notes.forEachAlive(function(daNote:Note) {
-				if (daNote.canBeHit && daNote.mustPress && !daNote.tooLate && !daNote.wasGoodHit) {
-					if (!directionsAccounted[daNote.noteData]) {
-						if (directionList.contains(daNote.noteData)) {
-							directionsAccounted[daNote.noteData] = true;
-							for (coolNote in possibleNotes) {
-								if (coolNote.noteData == daNote.noteData && Math.abs(daNote.strumTime - coolNote.strumTime) < 10) {
-									dumbNotes.push(daNote);
-									break;
-								} else if (coolNote.noteData == daNote.noteData && daNote.strumTime < coolNote.strumTime) {
-									possibleNotes.remove(coolNote);
-									possibleNotes.push(daNote);
-									break;
-								}
-							}
-						} else {
-							possibleNotes.push(daNote);
-							directionList.push(daNote.noteData);
-						}
-					}
-				}
-			});
-
-			for (note in dumbNotes) {
-				note.kill();
-				notes.remove(note, true);
-				note.destroy();
-			}
-
-			possibleNotes.sort((a, b) -> Std.int(a.strumTime - b.strumTime));
-
-			var dontCheck = false;
-
-			for (i in 0...pressArray.length) {
-				if (pressArray[i] && !directionList.contains(i))
-					dontCheck = true;
-			}
-
-			if (perfectMode)
-				goodNoteHit(possibleNotes[0]);
-			else if (possibleNotes.length > 0 && !dontCheck) {
-				if (!FlxG.save.data.ghost) {
-					for (shit in 0...pressArray.length) {
-						if (pressArray[shit] && !directionList.contains(shit))
-							noteMiss(shit, null);
-					}
-				}
-				for (coolNote in possibleNotes) {
-					if (pressArray[coolNote.noteData]) {
-						if (mashViolations != 0)
-							mashViolations--;
-						scoreTxt.color = FlxColor.WHITE;
-						goodNoteHit(coolNote);
-					}
-				}
-			} else if (!FlxG.save.data.ghost) {
-				for (shit in 0...pressArray.length)
-					if (pressArray[shit])
-						noteMiss(shit, null);
-			}
-
-			if (dontCheck && possibleNotes.length > 0 && FlxG.save.data.ghost && !FlxG.save.data.botplay) {
-				if (mashViolations > 8) {
-					scoreTxt.color = FlxColor.RED;
-					noteMiss(0, null);
-				} else
-					mashViolations++;
-			}
-		}
 
 		notes.forEachAlive(function(daNote:Note) {
-			if (FlxG.save.data.downscroll && daNote.y > strumLine.y || !FlxG.save.data.downscroll && daNote.y < strumLine.y) {
-				if (FlxG.save.data.botplay && daNote.canBeHit && daNote.mustPress || FlxG.save.data.botplay && daNote.tooLate && daNote.mustPress) {
-					goodNoteHit(daNote);
-					boyfriend.holdTimer = daNote.sustainLength;
+			if (daNote.mustPress && !daNote.tooLate && !daNote.wasGoodHit && daNote.canBeHit && !daNote.isSustainNote)
+				possibleNotes.push(daNote);
+		});
+
+		possibleNotes.sort((a, b) -> Std.int(a.strumTime - b.strumTime));
+
+		if (possibleNotes.length != 0) {
+			for (note in possibleNotes) {
+				if (pressArray[note.noteData] && !note.isSustainNote) {
+					goodNoteHit(note);
+					break;
+				}
+
+				if (holdArray[note.noteData] && note.isSustainNote) {
+					goodNoteHit(note);
+					break;
 				}
 			}
-		});
+		}
 
 		if (!boyfriend.specialTransition) {
 			if (boyfriend.holdTimer > Conductor.stepCrochet * 4 * 0.001 && (!holdArray.contains(true) || FlxG.save.data.botplay)) {
