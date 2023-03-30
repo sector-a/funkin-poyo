@@ -1502,7 +1502,7 @@ class PlayState extends MusicBeatState {
 		var releaseArray:Array<Bool> = [controls.LEFT_R, controls.DOWN_R, controls.UP_R, controls.RIGHT_R];
 
 		var possibleNotes:Array<Note> = [];
-		var directionList:Array<Int>
+		var directionList:Array<Int> = [];
 		var directionsAccounted:Array<Bool> = [false,false,false,false]; // we don't want to do judgments for more than one presses
 
 		if (FlxG.save.data.botplay) {
