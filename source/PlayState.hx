@@ -1510,7 +1510,7 @@ class PlayState extends MusicBeatState {
 		}
 
 		notes.forEachAlive(function(daNote:Note) {
-			if (daNote.mustPress && !daNote.tooLate && !daNote.wasGoodHit && daNote.canBeHit && !daNote.isSustainNote)
+			if (daNote.mustPress && !daNote.tooLate && !daNote.wasGoodHit && daNote.canBeHit)
 				possibleNotes.push(daNote);
 		});
 
@@ -1722,7 +1722,7 @@ class PlayState extends MusicBeatState {
 		if (curBeat % gfSpeed == 0)
 			gf.dance();
 
-		if (curBeat % 2 == 0 && (!boyfriend.specialTransition || boyfriend.specialTransition && boyfriend.animation.curAnim.name == 'idle'))
+		if (curBeat % 2 == 0 && (!boyfriend.specialTransition && boyfriend.animation.curAnim.startsWith('sing') || boyfriend.specialTransition && boyfriend.animation.curAnim.name == 'idle'))
 			boyfriend.playAnim('idle');
 	}
 
