@@ -65,7 +65,7 @@ class Character extends FlxSprite {
 				barColor = 0xFFaf66ce;
 				camPos = [200, -150];
 			case 'bf':
-				frames = Paths.getSparrowAtlas('characters/newbfpoyo', 'poyo');
+				frames = Paths.getSparrowAtlas('characters/BOYFRIEND', 'shared');
 
 				animation.addByPrefix('idle', 'BF idle dance', 24, false);
 				animation.addByPrefix('singUP', 'BF NOTE UP0', 24, false);
