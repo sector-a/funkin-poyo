@@ -144,8 +144,6 @@ class PlayState extends MusicBeatState {
 	var funneEffect:FlxSprite;
 	var inCutscene:Bool = false;
 
-	var speakers:FlxSprite;
-
 	public static var timeCurrently:Float = 0;
 	public static var timeCurrentlyR:Float = 0;
 
@@ -236,12 +234,6 @@ class PlayState extends MusicBeatState {
 					var bg:FlxSprite = new FlxSprite(-200, -450).loadGraphic(Paths.image('bg', 'poyo'));
 					bg.antialiasing = true;
 					add(bg);
-					
-					speakers = new FlxSprite();
-					speakers.frames = Paths.getSparrowAtlas('Speaker', 'poyo');
-					speakers.antialiasing = true;
-					speakers.animation.addByPrefix('bop', 'SpeakerLol', 24, true);
-					add(speakers);
 				}
 			default:
 				{
@@ -249,12 +241,6 @@ class PlayState extends MusicBeatState {
 					var bg:FlxSprite = new FlxSprite().loadGraphic(Paths.image('bg', 'poyo'));
 					bg.antialiasing = true;
 					add(bg);
-					
-					speakers = new FlxSprite();
-					speakers.frames = Paths.getSparrowAtlas('Speaker', 'poyo');
-					speakers.antialiasing = true;
-					speakers.animation.addByPrefix('bop', 'SpeakerLol', 24, true);
-					add(speakers);
 				}
 		}
 
@@ -265,24 +251,22 @@ class PlayState extends MusicBeatState {
 				gfVersion = 'gf';
 		}
 
-		gf = new Character(400, 130, gfVersion);
+		gf = new Character(0, 0, gfVersion);
 		gf.scrollFactor.set(0.95, 0.95);
-		dad = new Character(100, 100, SONG.player2);
-		boyfriend = new Boyfriend(770, 450, SONG.player1);
+		dad = new Character(0, 0, SONG.player2);
+		boyfriend = new Boyfriend(0, 0, SONG.player1);
 
 		switch (curStage)
 		{
 			case 'cityvspoyo':
-				dad.x += 240;
-				dad.y += 40;
-				gf.x += 400;
-				gf.y += -130;
-				boyfriend.x += -100;
-				boyfriend.y += -450;
-				speakers.x = gf.x - 130;
-				speakers.y = gf.y + 70;
-				dad.camZoom = 0.61;
-				boyfriend.camZoom = 0.7;
+				dad.x = 1060;
+				dad.y = 270;
+				gf.x = 1220;
+				gf.y = 200;
+				boyfriend.x += 1690;
+				boyfriend.y += 520;
+				dad.camZoom = 0.75;
+				boyfriend.camZoom = 0.8;
 		}
 		if (!hideGf)
 			add(gf);
@@ -1543,16 +1527,8 @@ class PlayState extends MusicBeatState {
 			}
 		}
 
-		if (!boyfriend.specialTransition) {
-			if (boyfriend.holdTimer > Conductor.stepCrochet * 4 * 0.001 && (!holdArray.contains(true) || FlxG.save.data.botplay)) {
-				if (boyfriend.animation.curAnim.name.startsWith('sing') && !boyfriend.animation.curAnim.name.endsWith('miss'))
-					boyfriend.playAnim('idle');
-			}
-		} else {
-			if (boyfriend.animation.curAnim.name == 'idle' && boyfriend.holdTimer > Conductor.stepCrochet * 4 * 0.001 && (!holdArray.contains(true) || FlxG.save.data.botplay)) {
-				if (boyfriend.animation.curAnim.name.startsWith('sing') && !boyfriend.animation.curAnim.name.endsWith('miss'))
-					boyfriend.playAnim('idle');
-			}
+		if (boyfriend.animation.curAnim.name == 'idle' && boyfriend.holdTimer > Conductor.stepCrochet * 4 * 0.001 && (!holdArray.contains(true) || FlxG.save.data.botplay)) {
+			boyfriend.playAnim('idle');
 		}
 
 		playerStrums.forEach(function(spr:FlxSprite) {
@@ -1625,6 +1601,7 @@ class PlayState extends MusicBeatState {
 	}
 
 	function goodNoteHit(note:Note, resetMashViolation = true):Void {
+		boyfriend.holdTimer = 0;
 		if (mashing != 0)
 			mashing = 0;
 
@@ -1713,9 +1690,6 @@ class PlayState extends MusicBeatState {
 					dad.dance();
 			}
 		}
-
-		if(curStage == 'cityvspoyo')
-			speakers.animation.play('bop');
 
 		iconP1.setGraphicSize(Std.int(iconP1.width + 30));
 		iconP2.setGraphicSize(Std.int(iconP2.width + 30));
