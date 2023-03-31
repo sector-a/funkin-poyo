@@ -229,19 +229,17 @@ class PlayState extends MusicBeatState {
 
 		switch (SONG.stage) {
 			case 'cityvspoyo':
-				{
-					curStage = 'cityvspoyo';
-					var bg:FlxSprite = new FlxSprite(0, 0).loadGraphic(Paths.image('bg', 'poyo'));
-					bg.antialiasing = true;
-					add(bg);
-				}
+				curStage = 'cityvspoyo';
+				var bg:FlxSprite = new FlxSprite(0, 0).loadGraphic(Paths.image('bg', 'poyo'));
+				bg.antialiasing = true;
+				add(bg);
+				camGame.setScrollBoundsRect(0, 0, bg.width, bg.height);
 			default:
-				{
-					curStage = 'cityvspoyo';
-					var bg:FlxSprite = new FlxSprite().loadGraphic(Paths.image('bg', 'poyo'));
-					bg.antialiasing = true;
-					add(bg);
-				}
+				curStage = 'cityvspoyo';
+				var bg:FlxSprite = new FlxSprite().loadGraphic(Paths.image('bg', 'poyo'));
+				bg.antialiasing = true;
+				add(bg);
+				camGame.setScrollBoundsRect(0, 0, bg.width, bg.height);
 		}
 
 		var gfVersion:String = 'gf';
@@ -265,7 +263,6 @@ class PlayState extends MusicBeatState {
 				gf.y = 200;
 				boyfriend.x = 1690;
 				boyfriend.y = 520;
-				camGame.setScrollBoundsRect(0, 0, bg.width, bg.height);
 				dad.camZoom = 0.8;
 				boyfriend.camZoom = 1;
 		}
