@@ -1703,10 +1703,10 @@ class PlayState extends MusicBeatState {
 
 	function isCharacterSinging(char):Void {
 		for (animation in noteAnimations) {
-			if (char.animation.curAnim.name == animation)
+			if (char.animation.curAnim.name == animation) {
 				return true;
 				break;
-			else
+			} else
 				continue;
 		}
 		return false;
