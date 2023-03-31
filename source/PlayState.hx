@@ -1701,7 +1701,7 @@ class PlayState extends MusicBeatState {
 			gf.dance();
 	}
 
-	function isCharacterSinging(char) {
+	function isCharacterSinging(char:Character) {
 		for (animation in noteAnimations) {
 			if (char.animation.curAnim.name == animation) {
 				return true;
