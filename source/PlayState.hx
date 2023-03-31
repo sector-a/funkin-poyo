@@ -231,7 +231,7 @@ class PlayState extends MusicBeatState {
 			case 'cityvspoyo':
 				{
 					curStage = 'cityvspoyo';
-					var bg:FlxSprite = new FlxSprite(-200, -450).loadGraphic(Paths.image('bg', 'poyo'));
+					var bg:FlxSprite = new FlxSprite(0, 0).loadGraphic(Paths.image('bg', 'poyo'));
 					bg.antialiasing = true;
 					add(bg);
 				}
@@ -265,8 +265,8 @@ class PlayState extends MusicBeatState {
 				gf.y = 200;
 				boyfriend.x += 1690;
 				boyfriend.y += 520;
-				dad.camZoom = 0.75;
-				boyfriend.camZoom = 0.8;
+				dad.camZoom = 0.95;
+				boyfriend.camZoom = 1;
 		}
 		if (!hideGf)
 			add(gf);
