@@ -1526,7 +1526,7 @@ class PlayState extends MusicBeatState {
 		}
 
 		if (boyfriend.holdTimer > Conductor.stepCrochet * boyfriend.maxHTimer * 0.001 && boyfriend.animation.curAnim.startsWith('sing'))
-			boyfriend.playAnim('idle');
+			boyfriend.dance();
 
 		playerStrums.forEach(function(spr:FlxSprite) {
 			if (pressArray[spr.ID] && spr.animation.curAnim.name != 'confirm')
@@ -1544,6 +1544,7 @@ class PlayState extends MusicBeatState {
 	}
 
 	function noteMiss(direction:Int = 1, daNote:Note):Void {
+		boyfriend.holdTimer = 0;
 		if (!boyfriend.stunned) {
 			health -= 0.04;
 			if (combo > 5 && gf.animOffsets.exists('sad')) {
@@ -1675,16 +1676,18 @@ class PlayState extends MusicBeatState {
 		if (generatedMusic)
 			notes.sort(FlxSort.byY, (FlxG.save.data.downscroll ? FlxSort.ASCENDING : FlxSort.DESCENDING));
 		
-		if (curBeat % 2 == 0) {
-			if (SONG.notes[Math.floor(curStep / 16)] != null) {
-				if (SONG.notes[Math.floor(curStep / 16)].changeBPM)
-					Conductor.changeBPM(SONG.notes[Math.floor(curStep / 16)].bpm);
-				if (dad.holdTimer > Conductor.stepCrochet * dad.maxHTimer * 0.001 && dad.curCharacter != 'gf' && !dad.specialTransition)
-					dad.dance();
-				if (dad.curCharacter != 'gf' && dad.specialTransition && dad.animation.curAnim.name == 'idle')
-					dad.dance();
-				else if (curBeat % gfSpeed == 0 && dad.curCharacter == 'gf')
-					dad.dance();
+		if (SONG.notes[Math.floor(curStep / 16)] != null) {
+			if (SONG.notes[Math.floor(curStep / 16)].changeBPM)
+				Conductor.changeBPM(SONG.notes[Math.floor(curStep / 16)].bpm);
+			if (curBeat % 2 == 0) {
+				for (character in [dad, boyfriend]) {
+					if (character.holdTimer > Conductor.stepCrochet * character.maxHTimer * 0.001 && character.curCharacter != 'gf' && !character.specialTransition)
+						character.dance();
+					if (character.curCharacter != 'gf' && character.specialTransition && character.animation.curAnim.name == 'idle')
+						character.dance();
+					else if (curBeat % gfSpeed == 0 && character.curCharacter == 'gf')
+						dad.dance();
+				}
 			}
 		}
 
@@ -1696,9 +1699,6 @@ class PlayState extends MusicBeatState {
 
 		if (curBeat % gfSpeed == 0)
 			gf.dance();
-
-		if (curBeat % 2 == 0 && !boyfriend.animation.curAnim.startsWith('sing'))
-			boyfriend.playAnim('idle');
 	}
 
 	override function destroy(){
