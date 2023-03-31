@@ -18,6 +18,8 @@ class Character extends FlxSprite {
 	public var camPos:Array<Float> = [0, 0];
 	public var camZoom:Float = 1;
 
+	public var maxHTimer:Float = 4;
+
 	//FOR POYO LOL
 	public var specialTransition:Bool = false;
 
@@ -120,7 +122,6 @@ class Character extends FlxSprite {
 				flipX = true;
 
 				barColor = 0xFF31b0d1;
-				camPos = [-100, 0];
 		}
 
 		dance();
@@ -130,20 +131,10 @@ class Character extends FlxSprite {
 	}
 
 	override function update(elapsed:Float) {
-		if (!curCharacter.startsWith('bf')) {
-			if (animation.curAnim != null && animation.curAnim.name.startsWith('sing')) {
-				holdTimer += elapsed;
-			}
-
-			var dadVar:Float = 4;
-
-			if (curCharacter == 'poyo')
-				dadVar = 6.1;
-			if (holdTimer >= Conductor.stepCrochet * dadVar * 0.001) {
-				dance();
-				holdTimer = 0;
-			}
+		if (animation.curAnim != null) {
+			holdTimer += elapsed;
 		}
+
 		super.update(elapsed);
 	}
 

@@ -263,9 +263,10 @@ class PlayState extends MusicBeatState {
 				dad.y = 270;
 				gf.x = 1220;
 				gf.y = 200;
-				boyfriend.x += 1690;
-				boyfriend.y += 520;
-				dad.camZoom = 0.95;
+				boyfriend.x = 1690;
+				boyfriend.y = 520;
+				camGame.setScrollBoundsRect(0, 0, bg.width, bg.height);
+				dad.camZoom = 0.8;
 				boyfriend.camZoom = 1;
 		}
 		if (!hideGf)
@@ -1527,10 +1528,6 @@ class PlayState extends MusicBeatState {
 			}
 		}
 
-		if (boyfriend.animation.curAnim.name == 'idle' && boyfriend.holdTimer > Conductor.stepCrochet * 4 * 0.001 && (!holdArray.contains(true) || FlxG.save.data.botplay)) {
-			boyfriend.playAnim('idle');
-		}
-
 		playerStrums.forEach(function(spr:FlxSprite) {
 			if (pressArray[spr.ID] && spr.animation.curAnim.name != 'confirm')
 				spr.animation.play('pressed');
@@ -1682,9 +1679,9 @@ class PlayState extends MusicBeatState {
 			if (SONG.notes[Math.floor(curStep / 16)] != null) {
 				if (SONG.notes[Math.floor(curStep / 16)].changeBPM)
 					Conductor.changeBPM(SONG.notes[Math.floor(curStep / 16)].bpm);
-				if (SONG.notes[Math.floor(curStep / 16)].mustHitSection && dad.curCharacter != 'gf' && !dad.specialTransition)
+				if (dad.holdTimer > Conductor.stepCrochet * dad.maxHTimer * 0.001 && dad.curCharacter != 'gf' && !dad.specialTransition)
 					dad.dance();
-				if (SONG.notes[Math.floor(curStep / 16)].mustHitSection && dad.curCharacter != 'gf' && dad.specialTransition && dad.animation.curAnim.name == 'idle')
+				if (dad.curCharacter != 'gf' && dad.specialTransition && dad.animation.curAnim.name == 'idle')
 					dad.dance();
 				else if (curBeat % gfSpeed == 0 && dad.curCharacter == 'gf')
 					dad.dance();
@@ -1700,7 +1697,7 @@ class PlayState extends MusicBeatState {
 		if (curBeat % gfSpeed == 0)
 			gf.dance();
 
-		if (curBeat % 2 == 0 && boyfriend.animation.curAnim.name == 'idle')
+		if (curBeat % 2 == 0 && boyfriend.holdTimer > Conductor.stepCrochet * boyfriend.maxHTimer * 0.001 && boyfriend.animation.curAnim.name == 'idle')
 			boyfriend.playAnim('idle');
 	}
 
