@@ -1525,7 +1525,7 @@ class PlayState extends MusicBeatState {
 			}
 		}
 
-		if (boyfriend.holdTimer > Conductor.stepCrochet * boyfriend.maxHTimer * 0.001 && boyfriend.animation.curAnim.name.startsWith('sing'))
+		if (boyfriend.holdTimer > Conductor.stepCrochet * boyfriend.maxHTimer * 0.001 && isCharacterSinging(boyfriend))
 			boyfriend.dance();
 
 		playerStrums.forEach(function(spr:FlxSprite) {
@@ -1681,7 +1681,7 @@ class PlayState extends MusicBeatState {
 				Conductor.changeBPM(SONG.notes[Math.floor(curStep / 16)].bpm);
 			if (curBeat % 2 == 0) {
 				for (character in [dad, boyfriend]) {
-					if (character.holdTimer > Conductor.stepCrochet * character.maxHTimer * 0.001 && character.curCharacter != 'gf' && !character.specialTransition && !isCharacterSinging(character))
+					if (character.curCharacter != 'gf' && !character.specialTransition && !isCharacterSinging(character))
 						character.dance();
 					if (character.curCharacter != 'gf' && character.specialTransition && character.animation.curAnim.name == 'idle')
 						character.dance();
