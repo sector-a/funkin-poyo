@@ -1694,7 +1694,7 @@ class PlayState extends MusicBeatState {
 		if (curBeat % gfSpeed == 0)
 			gf.dance();
 
-		if (curBeat % 2 == 0 && boyfriend.holdTimer > Conductor.stepCrochet * boyfriend.maxHTimer * 0.001 && boyfriend.animation.curAnim.name == 'idle')
+		if (curBeat % 2 == 0 && boyfriend.holdTimer > Conductor.stepCrochet * boyfriend.maxHTimer * 0.001)
 			boyfriend.playAnim('idle');
 	}
 
