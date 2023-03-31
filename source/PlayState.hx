@@ -1681,7 +1681,7 @@ class PlayState extends MusicBeatState {
 				Conductor.changeBPM(SONG.notes[Math.floor(curStep / 16)].bpm);
 			if (curBeat % 2 == 0) {
 				for (character in [dad, boyfriend]) {
-					if (character.holdTimer > Conductor.stepCrochet * character.maxHTimer * 0.001 && character.curCharacter != 'gf' && !character.specialTransition && !character.animation.curAnim.name.startsWith('sing'))
+					if (character.holdTimer > Conductor.stepCrochet * character.maxHTimer * 0.001 && character.curCharacter != 'gf' && !character.specialTransition && !isCharacterSinging(character))
 						character.dance();
 					if (character.curCharacter != 'gf' && character.specialTransition && character.animation.curAnim.name == 'idle')
 						character.dance();
@@ -1699,6 +1699,17 @@ class PlayState extends MusicBeatState {
 
 		if (curBeat % gfSpeed == 0)
 			gf.dance();
+	}
+
+	function isCharacterSinging(char):Void {
+		for (animation in noteAnimations) {
+			if (char.animation.curAnim.name == animation)
+				return true;
+				break;
+			else
+				continue;
+		}
+		return false;
 	}
 
 	override function destroy(){
