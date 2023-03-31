@@ -1525,6 +1525,9 @@ class PlayState extends MusicBeatState {
 			}
 		}
 
+		if (boyfriend.holdTimer > Conductor.stepCrochet * boyfriend.maxHTimer * 0.001 && boyfriend.animation.curAnim.startsWith('sing'))
+			boyfriend.playAnim('idle');
+
 		playerStrums.forEach(function(spr:FlxSprite) {
 			if (pressArray[spr.ID] && spr.animation.curAnim.name != 'confirm')
 				spr.animation.play('pressed');
@@ -1694,7 +1697,7 @@ class PlayState extends MusicBeatState {
 		if (curBeat % gfSpeed == 0)
 			gf.dance();
 
-		if (curBeat % 2 == 0 && boyfriend.holdTimer > Conductor.stepCrochet * boyfriend.maxHTimer * 0.001)
+		if (curBeat % 2 == 0 && !boyfriend.animation.curAnim.startsWith('sing'))
 			boyfriend.playAnim('idle');
 	}
 
