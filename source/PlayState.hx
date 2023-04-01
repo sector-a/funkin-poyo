@@ -1685,7 +1685,7 @@ class PlayState extends MusicBeatState {
 
 			if (curBeat == 80) {
 				cameraZoom = 1.25;
-				camGame.fade(FlxColor.BLACK, Conducter.crochet / 1000);
+				camGame.fade(FlxColor.BLACK, Conductor.crochet / 1000);
 				cameraBop = 2;
 				gfSpeed = 2;
 			}
