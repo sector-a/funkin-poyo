@@ -5,7 +5,7 @@ import flixel.FlxSprite;
 import flixel.FlxMath;
 
 class Stage extends FlxTypedGroup<FlxSprite>{
-	public static var curStage:String = 'stage'
+	public static var curStage:String = 'stage';
 	public function new(stageName:String) {
 		super();
 		switch (stageName) {
