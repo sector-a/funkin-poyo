@@ -26,8 +26,8 @@ class Stage extends FlxTypedGroup<FlxSprite>{
 		var width:Float = 0;
 		var height:Float = 0;
 		forEachAlive(function(spr:FlxSprite) {
-			if (spr.width > width) size = spr.width;
-			if (spr.height > height) size = spr.height;
+			if (spr.width > width) width = spr.width;
+			if (spr.height > height) height = spr.height;
 		});
 		return [width, height];
 	}
