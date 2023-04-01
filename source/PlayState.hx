@@ -1668,7 +1668,7 @@ class PlayState extends MusicBeatState {
 	override function beatHit() {
 		super.beatHit();
 
-		if (SONG.song.toLowercase() == 'Epic') {
+		if (SONG.song.toLowerCase() == 'Epic') {
 			if (curBeat == 16)
 				gfSpeed = 4;
 	
