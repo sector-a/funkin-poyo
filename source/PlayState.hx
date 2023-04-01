@@ -1689,7 +1689,7 @@ class PlayState extends MusicBeatState {
 	
 			if (curBeat == 88) {
 				gfSpeed = 1;
-				cameraBop = 4
+				cameraBop = 4;
 				camGame.flash(FlxColor.WHITE, 0.1);
 			}
 		}
