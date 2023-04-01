@@ -2,10 +2,10 @@ package;
 
 import flixel.group.FlxGroup.FlxTypedGroup;
 import flixel.FlxSprite;
-import flixel.FlxMath;
+import flixel.math.FlxMath;
 
 class Stage extends FlxTypedGroup<FlxSprite>{
-	public static var curStage:String = 'stage';
+	public var curStage:String = 'stage';
 	public function new(stageName:String) {
 		super();
 		switch (stageName) {
@@ -23,7 +23,7 @@ class Stage extends FlxTypedGroup<FlxSprite>{
 	}
 
 	public function returnStageWH() {
-		var size = [0, 0];
+		var size:Array<Float> = [0, 0];
 		forEachAlive(function(spr:FlxSprite) {
 			if (spr.width > size[0]) size = spr.width;
 			if (spr.height > size[1]) size = spr.height;
