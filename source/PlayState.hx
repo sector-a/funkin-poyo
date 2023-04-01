@@ -230,6 +230,7 @@ class PlayState extends MusicBeatState {
 		Conductor.changeBPM(SONG.bpm);
 
 		stage = new Stage(SONG.stage);
+		add(stage);
 		curStage = stage.curStage;
 		camGame.setScrollBoundsRect(0,0,returnStageWH()[0],returnStageWH()[1]);
 
