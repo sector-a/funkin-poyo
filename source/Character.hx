@@ -120,7 +120,7 @@ class Character extends FlxSprite {
 				playAnim('idle');
 
 				flipX = true;
-				camPos = [-200, -200];
+				camPos = [-200, -50];
 				barColor = 0xFF31b0d1;
 		}
 
