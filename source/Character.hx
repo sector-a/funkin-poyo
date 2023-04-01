@@ -18,7 +18,7 @@ class Character extends FlxSprite {
 	public var camPos:Array<Float> = [0, 0];
 	public var camZoom:Float = 1;
 
-	public var maxHTimer:Float = 4;
+	public var maxHTimer:Float = 8;
 
 	//FOR POYO LOL
 	public var specialTransition:Bool = false;
