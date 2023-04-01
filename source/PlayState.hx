@@ -137,6 +137,8 @@ class PlayState extends MusicBeatState {
 	var timer:FlxText;
 	var info:FlxText;
 
+	var stage:Stage;
+
 	public static var campaignScore:Int = 0;
 
 	public static var theFunne:Bool = true;
@@ -227,20 +229,8 @@ class PlayState extends MusicBeatState {
 		Conductor.mapBPMChanges(SONG);
 		Conductor.changeBPM(SONG.bpm);
 
-		switch (SONG.stage) {
-			case 'cityvspoyo':
-				curStage = 'cityvspoyo';
-				var bg:FlxSprite = new FlxSprite(0, 0).loadGraphic(Paths.image('bg', 'poyo'));
-				bg.antialiasing = true;
-				add(bg);
-				camGame.setScrollBoundsRect(0, 0, bg.width, bg.height);
-			default:
-				curStage = 'cityvspoyo';
-				var bg:FlxSprite = new FlxSprite().loadGraphic(Paths.image('bg', 'poyo'));
-				bg.antialiasing = true;
-				add(bg);
-				camGame.setScrollBoundsRect(0, 0, bg.width, bg.height);
-		}
+		stage = new Stage(SONG.stage);
+		curStage = stage.curStage;
 
 		var gfVersion:String = 'gf';
 
