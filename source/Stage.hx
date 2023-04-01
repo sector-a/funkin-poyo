@@ -1,10 +1,10 @@
 package;
 
-import flixel.group.FlxGroup.FlxTypedSpriteGroup;
+import flixel.group.FlxSpriteGroup;
 import flixel.FlxSprite;
 import flixel.math.FlxMath;
 
-class Stage extends FlxTypedSpriteGroup<FlxSprite>{
+class Stage extends FlxSpriteGroup<FlxSprite>{
 	public var curStage:String = 'stage';
 	public function new(stageName:String) {
 		super();
