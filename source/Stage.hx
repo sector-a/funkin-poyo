@@ -4,7 +4,7 @@ import flixel.group.FlxSpriteGroup;
 import flixel.FlxSprite;
 import flixel.math.FlxMath;
 
-class Stage extends FlxSpriteGroup<FlxSprite>{
+class Stage extends FlxSpriteGroup {
 	public var curStage:String = 'stage';
 	public function new(stageName:String) {
 		super();
