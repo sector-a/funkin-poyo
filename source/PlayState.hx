@@ -1668,7 +1668,7 @@ class PlayState extends MusicBeatState {
 	override function beatHit() {
 		super.beatHit();
 
-		if (SONG.song.toLowerCase() == 'Epic') {
+		if (SONG.song.toLowerCase() == 'epic') {
 			if (curBeat == 16)
 				gfSpeed = 4;
 	
@@ -1695,7 +1695,7 @@ class PlayState extends MusicBeatState {
 		}
 
 		if (curBeat % cameraBop == 0)
-			camGame.zoom += 0.45;
+			camGame.zoom += 0.15;
 
 		if (generatedMusic)
 			notes.sort(FlxSort.byY, (FlxG.save.data.downscroll ? FlxSort.ASCENDING : FlxSort.DESCENDING));
