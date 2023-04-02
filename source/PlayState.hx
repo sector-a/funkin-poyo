@@ -96,7 +96,7 @@ class PlayState extends MusicBeatState {
 	private var curSong:String = "";
 
 	private var gfSpeed:Int = 1;
-	private var gfCanBop:Bool = = true;
+	private var gfCanBop:Bool = true;
 
 	public var health:Float = 1;
 
