@@ -1746,11 +1746,12 @@ class PlayState extends MusicBeatState {
 
 			if (curBeat == 152) {
 				manualCam = true;
-				camFollow.setPosition(gf.getGraphicMidpoint().x, gf.getGraphicMidpoint().y);
-				cameraZoom = 0.75;
+				camFollow.setPosition(stage.getGraphicMidpoint().x, stage.getGraphicMidpoint().y);
+				cameraZoom = 0.9;
 			}
 
 			if (curBeat == 216) {
+				cameraZoom = 1;
 				gfSpeed = 4;
 				manualCam = false;
 				cameraCanBop = false;
@@ -1771,9 +1772,11 @@ class PlayState extends MusicBeatState {
 			}
 
 			if (curBeat == 320) {
+				stage.alpha = 1;
 				cameraZoom = 1;
 				gfSpeed = 1;
 				cameraBop = 4;
+				cameraCanBop = false;
 				camGame.flash(FlxColor.WHITE, 0.4);
 				camGame.fade(FlxColor.BLACK, 0, true);
 			}
