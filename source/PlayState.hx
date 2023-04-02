@@ -1647,15 +1647,15 @@ class PlayState extends MusicBeatState {
 	}
 
 	override function stepHit() {
-		var WHYISTHERESOMUCHZOOMS = [
-			slight = [
+		var WHYISTHERESOMUCHZOOMS:Array<Array<Int>> = [
+			[
 				1294,
 				1358,
 				1422,
 				1454,
 				1486
 			],
-			intense = [
+			[
 				1326,
 				1358,
 				1390,
@@ -1669,14 +1669,14 @@ class PlayState extends MusicBeatState {
 			resyncVocals();
 
 		if (SONG.song.toLowerCase() == 'epic') {
-			for (event in WHYISTHERESOMUCHZOOMS.slight)  {
+			for (event in WHYISTHERESOMUCHZOOMS[0])  {
 				if (curStep == event) {
 					cameraZoom = 1.2;
 				} else if (curStep == event + 4) {
 					cameraZoom = 1;
 				}
 			}
-			for (event in WHYISTHERESOMUCHZOOMS.intense)  {
+			for (event in WHYISTHERESOMUCHZOOMS[1])  {
 				if (curStep == event) {
 					cameraZoom = 1.2;
 				} else if (curStep == event + 4) {
@@ -1746,7 +1746,7 @@ class PlayState extends MusicBeatState {
 
 			if (curBeat == 152) {
 				manualCam = true;
-				camFollow.setPosition(gf.getGraphicMidpoint().x, gf.getGraphic.Midpoint().y);
+				camFollow.setPosition(gf.getGraphicMidpoint().x, gf.getGraphicMidpoint().y);
 				cameraZoom = 0.75;
 			}
 
