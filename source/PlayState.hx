@@ -1759,7 +1759,7 @@ class PlayState extends MusicBeatState {
 			}
 
 			if (curBeat == 248) {
-				cameraCanBop = true
+				cameraCanBop = true;
 				gfSpeed = 2;
 			}
 
