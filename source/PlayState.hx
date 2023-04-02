@@ -995,6 +995,9 @@ class PlayState extends MusicBeatState {
 				camFollow.setPosition(boyfriend.getMidpoint().x + boyfriend.camPos[0], boyfriend.getMidpoint().y + boyfriend.camPos[1]);
 			if (!manualCam && camGame.zoom != boyfriend.camZoom * cameraZoom && PlayState.SONG.notes[Std.int(curStep / 16)].mustHitSection)
 				camGame.zoom = FlxMath.lerp(boyfriend.camZoom * cameraZoom, camGame.zoom, CoolUtil.boundTo(1 - (elapsed * 3.125 * 1), 0, 1));
+
+			if (manualCam && camGame.zoom != cameraZoom)
+				camGame.zoom = FlxMath.lerp(cameraZoom, camGame.zoom, CoolUtil.boundTo(1 - (elapsed * 3.125 * 1), 0, 1));
 		}
 
 		FlxG.watch.addQuick("beatShit", curBeat);
@@ -1644,9 +1647,43 @@ class PlayState extends MusicBeatState {
 	}
 
 	override function stepHit() {
+		var WHYISTHERESOMUCHZOOMS = [
+			slight = [
+				1294,
+				1358,
+				1422,
+				1454,
+				1486
+			],
+			intense = [
+				1326,
+				1358,
+				1390,
+				1454,
+				1486,
+				1490
+			]
+		];
 		super.stepHit();
 		if (FlxG.sound.music.time > Conductor.songPosition + 20 || FlxG.sound.music.time < Conductor.songPosition - 20)
 			resyncVocals();
+
+		if (SONG.song.toLowerCase() == 'epic') {
+			for (event in WHYISTHERESOMUCHZOOMS.slight)  {
+				if (curStep == event) {
+					cameraZoom = 1.2;
+				} else if (curStep == event + 4) {
+					cameraZoom = 1;
+				}
+			}
+			for (event in WHYISTHERESOMUCHZOOMS.intense)  {
+				if (curStep == event) {
+					cameraZoom = 1.2;
+				} else if (curStep == event + 4) {
+					cameraZoom = 1;
+				}
+			}
+		}
 
 		#if windows
 		songLength = FlxG.sound.music.length;
@@ -1694,32 +1731,51 @@ class PlayState extends MusicBeatState {
 
 			if (curBeat == 80) {
 				cameraZoom = 1.25;
-				camGame.fade(FlxColor.BLACK, Conductor.crochet / 500);
+				camGame.fade(FlxColor.BLACK, Conductor.crochet / 250);
 				cameraBop = 2;
 				gfSpeed = 2;
 			}
 	
 			if (curBeat == 88) {
+				cameraZoom = 1;
 				gfSpeed = 1;
 				cameraBop = 4;
-				camGame.fade(FlxColor.BLACK, 0, true);
 				camGame.flash(FlxColor.WHITE, 0.4);
+				camGame.fade(FlxColor.BLACK, 0, true);
 			}
 
 			if (curBeat == 152) {
 				manualCam = true;
-				camFollow.setPosition(dad.getMidpoint().x + dad.camPos[0] + ((boyfriend.getMidpoint().x + boyfriend.camPos[0]) / 2), dad.getMidpoint().y + dad.camPos[1] + ((boyfriend.getMidpoint().y + boyfriend.camPos[1]) / 2));
+				camFollow.setPosition(gf.getGraphicMidpoint().x, gf.getGraphic.Midpoint().y);
+				cameraZoom = 0.75;
 			}
 
 			if (curBeat == 216) {
 				gfSpeed = 4;
 				manualCam = false;
-				stage.alpha = 0.62;
+				cameraCanBop = false;
 				camGame.flash(FlxColor.WHITE, 1);
+				stage.alpha = 0.62;
 			}
 
 			if (curBeat == 248) {
+				cameraCanBop = true
 				gfSpeed = 2;
+			}
+
+			if (curBeat == 312) {
+				cameraZoom = 1.25;
+				camGame.fade(FlxColor.BLACK, Conductor.crochet / 250);
+				cameraBop = 2;
+				gfSpeed = 2;
+			}
+
+			if (curBeat == 320) {
+				cameraZoom = 1;
+				gfSpeed = 1;
+				cameraBop = 4;
+				camGame.flash(FlxColor.WHITE, 0.4);
+				camGame.fade(FlxColor.BLACK, 0, true);
 			}
 		}
 
