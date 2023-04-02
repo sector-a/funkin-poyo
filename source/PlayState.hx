@@ -1355,7 +1355,7 @@ class PlayState extends MusicBeatState {
 			rating.loadGraphic(Paths.image(daRating, 'shared'));
 			rating.screenCenter();
 			rating.y -= 50;
-			rating.x = strumLineNotes.members[2].x - (rating.width / 2);
+			rating.x = strumLineNotes.members[6].x - (rating.width / 2);
 			rating.acceleration.y = 550;
 			rating.velocity.y -= FlxG.random.int(140, 175);
 			rating.velocity.x -= FlxG.random.int(0, 10);
