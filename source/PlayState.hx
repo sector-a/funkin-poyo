@@ -1351,14 +1351,13 @@ class PlayState extends MusicBeatState {
 			songScoreDef += Math.round(ConvertScore.convertScore(noteDiff));
 		}
 
-		if (FlxG.save.data.ratings) {
-			rating.loadGraphic(Paths.image(daRating, 'shared'));
-			rating.screenCenter();
-			rating.y -= 50;
-			rating.x = strumLineNotes.members[6].x - (rating.width / 2);
+ 		if (FlxG.save.data.ratings) {
+ 			rating.loadGraphic(Paths.image(daRating, 'shared'));
+ 			rating.screenCenter();
+ 			rating.y -= 50;
 			rating.acceleration.y = 550;
-			rating.velocity.y -= FlxG.random.int(140, 175);
-			rating.velocity.x -= FlxG.random.int(0, 10);
+ 			rating.velocity.y -= FlxG.random.int(140, 175);
+ 			rating.velocity.x -= FlxG.random.int(0, 10);
 
 			var comboSpr:FlxSprite = new FlxSprite().loadGraphic(Paths.image('combo', 'shared'));
 			comboSpr.screenCenter();
@@ -1398,8 +1397,7 @@ class PlayState extends MusicBeatState {
 			for (i in seperatedScore) {
 				var numScore:FlxSprite = new FlxSprite().loadGraphic(Paths.image('num' + Std.int(i)));
 				numScore.screenCenter();
-				numScore.x = rating.x + (43 * daLoop) - 50;
-				numScore.y = rating.y + 100;
+				numScore.x += (-43 * 2) + (43 * daLoop);
 				numScore.cameras = [camHUD];
 				numScore.antialiasing = true;
 				numScore.setGraphicSize(Std.int(numScore.width * 0.5));
@@ -1482,7 +1480,7 @@ class PlayState extends MusicBeatState {
 			}
 		}
 
-		if (boyfriend.holdTimer > Conductor.stepCrochet * boyfriend.maxHTimer * 0.001 && isCharacterSinging(boyfriend))
+		if (boyfriend.holdTimer > (Conductor.crochet / 1000) * boyfriend.maxHTimer && isCharacterSinging(boyfriend))
 			boyfriend.dance();
 
 		playerStrums.forEach(function(spr:FlxSprite) {
@@ -1701,7 +1699,7 @@ class PlayState extends MusicBeatState {
 
 			if (curBeat == 152) {
 				manualCam = true;
-				camFollow.setPosition(stage.width / 2, stage.height / 2);
+				camFollow.setPosition(stage.width / 2, stage.height / 2 - 125);
 				cameraZoom = 0.9;
 			}
 
@@ -1738,7 +1736,7 @@ class PlayState extends MusicBeatState {
 		}
 
 		if (curBeat % cameraBop == 0 && cameraCanBop)
-			camGame.zoom += 0.2;
+			camGame.zoom += 0.075;
 
 		if (generatedMusic)
 			notes.sort(FlxSort.byY, (FlxG.save.data.downscroll ? FlxSort.ASCENDING : FlxSort.DESCENDING));
