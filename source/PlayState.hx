@@ -96,7 +96,7 @@ class PlayState extends MusicBeatState {
 	private var curSong:String = "";
 
 	private var gfSpeed:Int = 1;
-	private var gfCanBop:Bool = = true
+	private var gfCanBop:Bool = = true;
 
 	public var health:Float = 1;
 
@@ -140,7 +140,7 @@ class PlayState extends MusicBeatState {
 
 	var cameraZoom:Float = 1;
 	var cameraBop:Int = 4;
-	var cameraCanBop:Bool = true
+	var cameraCanBop:Bool = true;
 	var manualCam:Bool = false;
 
 	var stage:Stage;
