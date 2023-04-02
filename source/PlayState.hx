@@ -1678,7 +1678,7 @@ class PlayState extends MusicBeatState {
 			}
 			for (event in WHYISTHERESOMUCHZOOMS[1])  {
 				if (curStep == event) {
-					cameraZoom = 1.2;
+					cameraZoom = 1.45;
 				} else if (curStep == event + 4) {
 					cameraZoom = 1;
 				}
@@ -1746,7 +1746,7 @@ class PlayState extends MusicBeatState {
 
 			if (curBeat == 152) {
 				manualCam = true;
-				camFollow.setPosition(stage.getGraphicMidpoint().x, stage.getGraphicMidpoint().y);
+				camFollow.setPosition(stage.width / 2, stage.height / 2);
 				cameraZoom = 0.9;
 			}
 
