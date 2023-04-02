@@ -96,6 +96,7 @@ class PlayState extends MusicBeatState {
 	private var curSong:String = "";
 
 	private var gfSpeed:Int = 1;
+	private var gfCanBop:Bool = = true
 
 	public var health:Float = 1;
 
@@ -139,6 +140,7 @@ class PlayState extends MusicBeatState {
 
 	var cameraZoom:Float = 1;
 	var cameraBop:Int = 4;
+	var cameraCanBop:Bool = true
 	var manualCam:Bool = false;
 
 	var stage:Stage;
@@ -986,12 +988,12 @@ class PlayState extends MusicBeatState {
 		if (generatedMusic && PlayState.SONG.notes[Std.int(curStep / 16)] != null) {
 			if (!manualCam && camFollow.x != dad.getMidpoint().x + dad.camPos[0] && !PlayState.SONG.notes[Std.int(curStep / 16)].mustHitSection)
 				camFollow.setPosition(dad.getMidpoint().x + dad.camPos[0], dad.getMidpoint().y + dad.camPos[1]);
-			if (camGame.zoom != dad.camZoom * cameraZoom && !PlayState.SONG.notes[Std.int(curStep / 16)].mustHitSection)
+			if (!manualCam && camGame.zoom != dad.camZoom * cameraZoom && !PlayState.SONG.notes[Std.int(curStep / 16)].mustHitSection)
 				camGame.zoom = FlxMath.lerp(dad.camZoom * cameraZoom, camGame.zoom, CoolUtil.boundTo(1 - (elapsed * 3.125 * 1), 0, 1));
 
 			if (!manualCam && camFollow.x != boyfriend.getMidpoint().x + boyfriend.camPos[0] && PlayState.SONG.notes[Std.int(curStep / 16)].mustHitSection)
 				camFollow.setPosition(boyfriend.getMidpoint().x + boyfriend.camPos[0], boyfriend.getMidpoint().y + boyfriend.camPos[1]);
-			if (camGame.zoom != boyfriend.camZoom * cameraZoom && PlayState.SONG.notes[Std.int(curStep / 16)].mustHitSection)
+			if (!manualCam && camGame.zoom != boyfriend.camZoom * cameraZoom && PlayState.SONG.notes[Std.int(curStep / 16)].mustHitSection)
 				camGame.zoom = FlxMath.lerp(boyfriend.camZoom * cameraZoom, camGame.zoom, CoolUtil.boundTo(1 - (elapsed * 3.125 * 1), 0, 1));
 		}
 
@@ -1670,8 +1672,15 @@ class PlayState extends MusicBeatState {
 		super.beatHit();
 
 		if (SONG.song.toLowerCase() == 'epic') {
-			if (curBeat == 16)
+			if (curBeat == 0) {
+				gfCanBop = false;
+				cameraCanBop = false;
+			}
+			if (curBeat == 16) {
+				gfCanBop = true;
+				cameraCanBop = true;
 				gfSpeed = 4;
+			}
 	
 			if (curBeat == 48) {
 				gfSpeed = 2;
@@ -1685,7 +1694,7 @@ class PlayState extends MusicBeatState {
 
 			if (curBeat == 80) {
 				cameraZoom = 1.25;
-				camGame.fade(FlxColor.BLACK, Conductor.crochet / 1000);
+				camGame.fade(FlxColor.BLACK, Conductor.crochet / 500);
 				cameraBop = 2;
 				gfSpeed = 2;
 			}
@@ -1694,18 +1703,18 @@ class PlayState extends MusicBeatState {
 				gfSpeed = 1;
 				cameraBop = 4;
 				camGame.fade(FlxColor.BLACK, 0, true);
-				camGame.flash(FlxColor.WHITE, 0.1);
+				camGame.flash(FlxColor.WHITE, 0.4);
 			}
 
 			if (curBeat == 152) {
 				manualCam = true;
-				camFollow.setPosition(dad.getMidpoint().x + dad.camPos[0] - ((boyfriend.getMidpoint().x + boyfriend.camPos[0]) / 2), dad.getMidpoint().y + dad.camPos[1] - ((boyfriend.getMidpoint().y + boyfriend.camPos[1]) / 2));
+				camFollow.setPosition(dad.getMidpoint().x + dad.camPos[0] + ((boyfriend.getMidpoint().x + boyfriend.camPos[0]) / 2), dad.getMidpoint().y + dad.camPos[1] + ((boyfriend.getMidpoint().y + boyfriend.camPos[1]) / 2));
 			}
 
 			if (curBeat == 216) {
 				gfSpeed = 4;
 				manualCam = false;
-				stage.alpha = 0.75;
+				stage.alpha = 0.62;
 				camGame.flash(FlxColor.WHITE, 1);
 			}
 
@@ -1714,8 +1723,8 @@ class PlayState extends MusicBeatState {
 			}
 		}
 
-		if (curBeat % cameraBop == 0)
-			camGame.zoom += 0.5;
+		if (curBeat % cameraBop == 0 && cameraCanBop)
+			camGame.zoom += 0.2;
 
 		if (generatedMusic)
 			notes.sort(FlxSort.byY, (FlxG.save.data.downscroll ? FlxSort.ASCENDING : FlxSort.DESCENDING));
@@ -1741,7 +1750,7 @@ class PlayState extends MusicBeatState {
 		iconP1.updateHitbox();
 		iconP2.updateHitbox();
 
-		if (curBeat % gfSpeed == 0)
+		if (curBeat % gfSpeed == 0 && gfCanBop)
 			gf.dance();
 	}
 
