@@ -57,7 +57,6 @@ class PlayState extends MusicBeatState {
 	public static var goods:Int = 0;
 	public static var sicks:Int = 0;
 
-	public static var noteBools:Array<Bool> = [false, false, false, false];
 	public static var noteAnimations:Array<String> = ['singLEFT', 'singDOWN', 'singUP', 'singRIGHT'];
 	var songLength:Float = 0;
 
@@ -105,11 +104,8 @@ class PlayState extends MusicBeatState {
 	public static var misses:Int = 0;
 
 	private var accuracy:Float = 0.00;
-	private var accuracyDefault:Float = 0.00;
 	private var totalNotesHit:Float = 0;
-	private var totalNotesHitDefault:Float = 0;
 	private var totalPlayed:Int = 0;
-	private var ss:Bool = false;
 
 	private var healthBarBG:FlxSprite;
 	private var healthBar:FlxBar;
@@ -123,14 +119,8 @@ class PlayState extends MusicBeatState {
 
 	private var camGame:FlxCamera;
 
-	var dialog:Array<String> = [];
-
 	var notesHitArray:Array<Date> = [];
-	var currentFrames:Int = 0;
 
-	var fc:Bool = true;
-
-	var talking:Bool = true;
 	var songScore:Int = 0;
 	var songScoreDef:Int = 0;
 	var scoreTxt:FlxText;
@@ -147,13 +137,7 @@ class PlayState extends MusicBeatState {
 
 	public static var campaignScore:Int = 0;
 
-	public static var theFunne:Bool = true;
-
-	var funneEffect:FlxSprite;
 	var inCutscene:Bool = false;
-
-	public static var timeCurrently:Float = 0;
-	public static var timeCurrentlyR:Float = 0;
 
 	private var triggeredAlready:Bool = false;
 	private var allowedToHeadbang:Bool = false;
@@ -229,8 +213,7 @@ class PlayState extends MusicBeatState {
 
 		FlxCamera.defaultCameras = [camGame];
 
-		persistentUpdate = true;
-		persistentDraw = true;
+		persistentUpdate = persistentDraw = true;
 
 		Conductor.mapBPMChanges(SONG);
 		Conductor.changeBPM(SONG.bpm);
@@ -288,7 +271,7 @@ class PlayState extends MusicBeatState {
 		strumLineNotes = new FlxTypedGroup<FlxSprite>();
 		add(strumLineNotes);
 
-		grpNoteSplashes = new FlxTypedGroup<NoteSplash>();
+		grpNoteSplashes = new FlxTypedGroup<NoteSplash>(8);
 
 		var noteSplash:NoteSplash = new NoteSplash(100, 100, 0);
 		grpNoteSplashes.add(noteSplash);
@@ -417,16 +400,13 @@ class PlayState extends MusicBeatState {
 	}
 
 	var startTimer:FlxTimer;
-	var perfectMode:Bool = false;
 
 	function startCountdown():Void {
-		inCutscene = false;
-		canPause = false;
+		inCutscene = canPause = false;
 
 		generateStaticArrows(0);
 		generateStaticArrows(1);
 
-		talking = false;
 		startedCountdown = true;
 		Conductor.songPosition = 0;
 		Conductor.songPosition -= Conductor.crochet * 5;
@@ -489,25 +469,21 @@ class PlayState extends MusicBeatState {
 					});
 
 					FlxG.sound.play(Paths.sound('introGo', 'shared'), 0.6);
-				case 4:
 			}
 
 			swagCounter += 1;
-		}, 5);
+		}, 4);
 	}
 
 	var previousFrameTime:Int = 0;
-	var lastReportedPlayheadPosition:Int = 0;
 	var songTime:Float = 0;
 
 	var songStarted = false;
 
 	function startSong():Void {
 		startingSong = false;
-		songStarted = true;
-		canPause = true;
+		songStarted = canPause = true;
 		previousFrameTime = FlxG.game.ticks;
-		lastReportedPlayheadPosition = 0;
 
 		if (!paused)
 			FlxG.sound.playMusic(Paths.inst(PlayState.SONG.song), 1, false);
@@ -874,10 +850,6 @@ class PlayState extends MusicBeatState {
 	public static var songRate = 1.5;
 
 	override public function update(elapsed:Float) {
-		#if !debug
-		perfectMode = false;
-		#end
-
 		info.text = '${SONG.song}' + ' - ' + (storyDifficulty == 2 ? "Hard" : storyDifficulty == 1 ? "Normal" : "Easy");
 		if (FlxG.save.data.timer) {
 			var curTime:Float = Conductor.songPosition;
@@ -1223,8 +1195,7 @@ class PlayState extends MusicBeatState {
 						else
 							P1vocals.volume = 0;
 
-						if (theFunne)
-							noteMiss(daNote.noteData, daNote);
+						noteMiss(daNote.noteData, daNote);
 					}
 
 					daNote.visible = false;
@@ -1348,20 +1319,17 @@ class PlayState extends MusicBeatState {
 				score = -300;
 				combo = 0;
 				health -= 0.2;
-				ss = false;
 				shits++;
 				totalNotesHit += 0.25;
 			case 'bad':
 				daRating = 'bad';
 				score = 0;
 				health -= 0.06;
-				ss = false;
 				bads++;
 				totalNotesHit += 0.50;
 			case 'good':
 				daRating = 'good';
 				score = 200;
-				ss = false;
 				goods++;
 				if (health < 2)
 					health += 0.04;
@@ -1470,10 +1438,6 @@ class PlayState extends MusicBeatState {
 		curSection += 1;
 	}
 
-	public function NearlyEquals(value1:Float, value2:Float, unimportantDifference:Float = 10):Bool {
-		return Math.abs(FlxMath.roundDecimal(value1, 1) - FlxMath.roundDecimal(value2, 1)) < unimportantDifference;
-	}
-
 	var upHold:Bool = false;
 	var downHold:Bool = false;
 	var rightHold:Bool = false;
@@ -1488,11 +1452,9 @@ class PlayState extends MusicBeatState {
 		var directionList:Array<Int> = [];
 		var directionsAccounted:Array<Bool> = [false,false,false,false]; // we don't want to do judgments for more than one presses
 
-		if (FlxG.save.data.botplay) {
-			holdArray = [false, false, false, false];
-			pressArray = [false, false, false, false];
-			releaseArray = [false, false, false, false];
-		}
+		if (FlxG.save.data.botplay)
+			for (i in [holdArray, pressArray, releaseArray])
+				i = [false];
 
 		notes.forEachAlive(function(daNote:Note) {
 			if (daNote.mustPress && !daNote.tooLate && !daNote.wasGoodHit && daNote.canBeHit) {
@@ -1567,7 +1529,6 @@ class PlayState extends MusicBeatState {
 	function updateAccuracy() {
 		totalPlayed += 1;
 		accuracy = Math.max(0, totalNotesHit / totalPlayed * 100);
-		accuracyDefault = Math.max(0, totalNotesHitDefault / totalPlayed * 100);
 	}
 
 	function getKeyPresses(note:Note):Int {
@@ -1803,8 +1764,8 @@ class PlayState extends MusicBeatState {
 			}
 		}
 
-		iconP1.setGraphicSize(Std.int(iconP1.width + 30));
-		iconP2.setGraphicSize(Std.int(iconP2.width + 30));
+		iconP1.scale.set(1.2, 1.2);
+		iconP2.scale.set(1.2, 1.2);
 
 		iconP1.updateHitbox();
 		iconP2.updateHitbox();
@@ -1822,7 +1783,7 @@ class PlayState extends MusicBeatState {
 				continue;
 		}
 		return false;
-	}
+	}	
 
 	override function destroy(){
 		instance = null;
