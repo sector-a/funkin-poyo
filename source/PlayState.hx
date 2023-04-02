@@ -255,12 +255,12 @@ class PlayState extends MusicBeatState {
 		switch (curStage)
 		{
 			case 'cityvspoyo':
-				dad.x = 1060;
-				dad.y = 270;
-				gf.x = 1220;
+				boyfriend.x = 1480;
+				boyfriend.y = 500;
+				dad.x = 700;
+				dad.y = 240;
+				gf.x = 919;
 				gf.y = 200;
-				boyfriend.x = 1690;
-				boyfriend.y = 520;
 				dad.camZoom = 0.8;
 				boyfriend.camZoom = 1;
 		}
