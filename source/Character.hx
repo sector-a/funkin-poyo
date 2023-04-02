@@ -18,7 +18,7 @@ class Character extends FlxSprite {
 	public var camPos:Array<Float> = [0, 0];
 	public var camZoom:Float = 1;
 
-	public var maxHTimer:Float = 4;
+	public var maxHTimer:Float = 8;
 
 	//FOR POYO LOL
 	public var specialTransition:Bool = false;
@@ -120,7 +120,7 @@ class Character extends FlxSprite {
 				playAnim('idle');
 
 				flipX = true;
-
+				camPos = [-200, -120];
 				barColor = 0xFF31b0d1;
 		}
 
