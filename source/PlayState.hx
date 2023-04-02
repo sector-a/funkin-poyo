@@ -1452,11 +1452,9 @@ class PlayState extends MusicBeatState {
 		var directionList:Array<Int> = [];
 		var directionsAccounted:Array<Bool> = [false,false,false,false]; // we don't want to do judgments for more than one presses
 
-		if (FlxG.save.data.botplay) {
-			holdArray = [false, false, false, false];
-			pressArray = [false, false, false, false];
-			releaseArray = [false, false, false, false];
-		}
+		if (FlxG.save.data.botplay)
+			for (i in [holdArray, pressArray, releaseArray])
+				i = [false];
 
 		notes.forEachAlive(function(daNote:Note) {
 			if (daNote.mustPress && !daNote.tooLate && !daNote.wasGoodHit && daNote.canBeHit) {
