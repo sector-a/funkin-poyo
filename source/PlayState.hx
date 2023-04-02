@@ -1355,12 +1355,7 @@ class PlayState extends MusicBeatState {
 			rating.loadGraphic(Paths.image(daRating, 'shared'));
 			rating.screenCenter();
 			rating.y -= 50;
-			rating.x = coolText.x - 125;
-
-			if (FlxG.save.data.changedHit) {
-				rating.x = FlxG.save.data.changedHitX;
-				rating.y = FlxG.save.data.changedHitY;
-			}
+			rating.x = strumLineNotes.members[2].x - (rating.width / 2);
 			rating.acceleration.y = 550;
 			rating.velocity.y -= FlxG.random.int(140, 175);
 			rating.velocity.x -= FlxG.random.int(0, 10);
@@ -1416,6 +1411,8 @@ class PlayState extends MusicBeatState {
 
 				add(numScore);
 
+				daLoop++;
+
 				FlxTween.tween(numScore, {alpha: 0}, 0.2, {
 					onComplete: function(tween:FlxTween) {
 						numScore.destroy();
@@ -1423,9 +1420,6 @@ class PlayState extends MusicBeatState {
 					startDelay: Conductor.crochet * 0.002
 				});
 			}
-
-			daLoop++;
-
 			FlxTween.tween(comboSpr, {alpha: 0}, 0.2, {
 				onComplete: function(tween:FlxTween) {
 					coolText.destroy();
