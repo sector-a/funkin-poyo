@@ -296,10 +296,10 @@ class PlayState extends MusicBeatState {
 		if (!FlxG.save.data.poyoMode) {
 			strum_1 = playerStrums;
 			playerChar = boyfriend;
-			strum_2 = opponentStrums;
+			strum_2 = cpuStrums;
 			opponentChar = dad;
 		} else {
-			strum_1 = opponentStrums;
+			strum_1 = cpuStrums;
 			playerChar = dad;
 			strum_2 = playerStrums;
 			opponentChar = boyfriend;

@@ -22,6 +22,7 @@ class Character extends FlxSprite {
 
 	//FOR POYO LOL
 	public var specialTransition:Bool = false;
+	public var stunned:Bool = false;
 
 	public function new(x:Float, y:Float, ?character:String = "bf", ?isPlayer:Bool = false) {
 		super(x, y);
