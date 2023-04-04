@@ -1166,8 +1166,7 @@ class PlayState extends MusicBeatState {
 					}
 
 					opponentChar.playAnim(noteAnimations[Std.int(Math.abs(daNote.noteData))] + altAnim, true);
-					if (opponentChar.holdTimer > (Conductor.crochet / 1000) * opponentChar.maxHTimer && isCharacterSinging(opponentChar) && !opponentChar.specialTransition)
-						opponentChar.dance();
+					opponentChar.holdTimer = 0;
 
 					strum_2.forEach(function(spr:FlxSprite) {
 						if (Math.abs(daNote.noteData) == spr.ID) {
@@ -1469,6 +1468,9 @@ class PlayState extends MusicBeatState {
 
 		if (playerChar.holdTimer > (Conductor.crochet / 1000) * playerChar.maxHTimer && isCharacterSinging(playerChar) && !playerChar.specialTransition)
 			playerChar.dance();
+
+		if (opponentChar.holdTimer > (Conductor.crochet / 1000) * opponentChar.maxHTimer && isCharacterSinging(opponentChar) && !opponentChar.specialTransition)
+			opponentChar.dance();
 
 		strum_1.forEach(function(spr:FlxSprite) {
 			if (pressArray[spr.ID] && spr.animation.curAnim.name != 'confirm')
