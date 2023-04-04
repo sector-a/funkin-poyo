@@ -126,7 +126,7 @@ class Note extends FlxSprite {
 	override function update(elapsed:Float) {
 		super.update(elapsed);
 
-		if (mustPress) {
+		if (FlxG.save.data.poyoMode ? !mustPress : mustPress) {
 			if (isSustainNote) {
 				if (strumTime > Conductor.songPosition - (Conductor.safeZoneOffset * 1.5)
 					&& strumTime < Conductor.songPosition + (Conductor.safeZoneOffset * 0.5))

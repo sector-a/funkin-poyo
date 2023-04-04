@@ -9,6 +9,9 @@ class KadeEngineData {
 		if (FlxG.save.data.cutscenesInFreeplay == null)
 			FlxG.save.data.cutscenesInFreeplay = false;
 
+		if (FlxG.save.data.poyoMode == null)
+			FlxG.save.data.poyoMode = false;
+
 		if (FlxG.save.data.downscroll == null)
 			FlxG.save.data.downscroll = false;
 

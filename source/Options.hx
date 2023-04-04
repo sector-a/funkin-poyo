@@ -216,6 +216,28 @@ class DownscrollOption extends Option {
 	}
 }
 
+class PoyoOption extends Option {
+	public function new(desc:String) {
+		super();
+		description = desc;
+	}
+
+	public override function left():Bool {
+		FlxG.save.data.poyoMode = !FlxG.save.data.poyoMode;
+		display = updateDisplay();
+		return true;
+	}
+
+	public override function right():Bool {
+		left();
+		return true;
+	}
+
+	private override function updateDisplay():String {
+		return "Poyo Mode: < " + (FlxG.save.data.downscroll ? "On" : "Off") + " >";
+	}
+}
+
 class RatingOption extends Option {
 	public function new(desc:String) {
 		super();
