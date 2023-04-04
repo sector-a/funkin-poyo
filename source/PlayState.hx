@@ -1180,8 +1180,6 @@ class PlayState extends MusicBeatState {
 							spr.centerOffsets();
 					});
 
-					dad.holdTimer = 0;
-
 					if (SONG.needsVoices)
 						if (SepVocalsNull)
 							vocals.volume = 1;
@@ -1466,11 +1464,10 @@ class PlayState extends MusicBeatState {
 			}
 		}
 
-		if (playerChar.holdTimer > (Conductor.crochet / 1000) * playerChar.maxHTimer && isCharacterSinging(playerChar) && !playerChar.specialTransition)
-			playerChar.dance();
-
-		if (opponentChar.holdTimer > (Conductor.crochet / 1000) * opponentChar.maxHTimer && isCharacterSinging(opponentChar) && !opponentChar.specialTransition)
-			opponentChar.dance();
+		for (char in [dad, boyfriend]) {
+			if (char.holdTimer > (Conductor.crochet / 1000) * char.maxHTimer && isCharacterSinging(char) && !char.specialTransition)
+				char.dance();
+		}
 
 		strum_1.forEach(function(spr:FlxSprite) {
 			if (pressArray[spr.ID] && spr.animation.curAnim.name != 'confirm')
