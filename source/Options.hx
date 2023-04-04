@@ -234,7 +234,7 @@ class PoyoOption extends Option {
 	}
 
 	private override function updateDisplay():String {
-		return "Poyo Mode: < " + (FlxG.save.data.downscroll ? "On" : "Off") + " >";
+		return "Poyo Mode: < " + (FlxG.save.data.poyoMode ? "On" : "Off") + " >";
 	}
 }
 

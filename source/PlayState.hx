@@ -153,8 +153,6 @@ class PlayState extends MusicBeatState {
 
 	private var botPlayState:FlxText;
 
-	public var comboTxt:FlxText;
-
 	var grpNoteSplashes:FlxTypedGroup<NoteSplash>;
 
 	public var hideGf:Bool = false; // write hideGf = true in stage to remove gf !
@@ -267,7 +265,7 @@ class PlayState extends MusicBeatState {
 
 		if (FlxG.save.data.bgNotesAlpha != 0) {
 			var width = 490;
-			var notesBgBF:FlxSprite = new FlxSprite(FlxG.save.data.middleScroll ? (FlxG.width / 2) - (width / 2) : (FlxG.width / 2) + 80, 0).makeGraphic(width, FlxG.height, FlxColor.BLACK);
+			var notesBgBF:FlxSprite = new FlxSprite(FlxG.save.data.middleScroll ? (FlxG.width / 2) - (width / 2) : (FlxG.save.data.poyoMode ? 80 : (FlxG.width / 2) + 80), 0).makeGraphic(width, FlxG.height, FlxColor.BLACK);
 			notesBgBF.cameras = [camHUD];
 			notesBgBF.alpha = FlxG.save.data.bgNotesAlpha;
 			add(notesBgBF);
@@ -391,12 +389,6 @@ class PlayState extends MusicBeatState {
 		info.borderQuality = 2;
 		info.scrollFactor.set();
 		add(info);
-
-    comboTxt = new FlxText(0,0,0,Std.string(combo),12,false);
-    comboTxt.alignment = FlxTextAlign.CENTER;
-    comboTxt.screenCenter();
-    comboTxt.cameras = [camHUD];
-    add(comboTxt);
 
 		grpNoteSplashes.cameras = [camHUD];
 		strumLineNotes.cameras = [camHUD];
@@ -728,12 +720,16 @@ class PlayState extends MusicBeatState {
 			switch (player) {
 				case 0:
 					cpuStrums.add(babyArrow);
-					if (FlxG.save.data.middleScroll)
+					if (FlxG.save.data.middleScroll && !FlxG.save.data.poyoMode)
 						babyArrow.visible = false;
+					else
+						babyArrow.x = (FlxG.width / 2) - (Note.swagWidth * 2) + (Note.swagWidth * i);
 				case 1:
 					playerStrums.add(babyArrow);
-					if (FlxG.save.data.middleScroll)
+					if (FlxG.save.data.middleScroll && !FlxG.save.data.poyoMode)
 						babyArrow.x = (FlxG.width / 2) - (Note.swagWidth * 2) + (Note.swagWidth * i);
+					else
+						babyArrow.visible = false;
 			}
 
 			babyArrow.animation.play('static');
@@ -904,10 +900,6 @@ class PlayState extends MusicBeatState {
 					balls = 0;
 				balls--;
 			}
-		}
-
-		if (comboTxt.text != Std.string(combo)) {
-			comboTxt.text = Std.string(combo);
 		}
 
 		super.update(elapsed);
@@ -1167,7 +1159,15 @@ class PlayState extends MusicBeatState {
 							altAnim = '-alt';
 					}
 
+					if (FlxG.save.data.noteSplashes && (FlxG.save.data.poyoMode || (SONG.song.toLowerCase() == 'epic' && FlxG.random.bool(68)) {
+						var noteSplash:NoteSplash = grpNoteSplashes.recycle(NoteSplash);
+						noteSplash.setupNoteSplash(daNote.x, daNote.y, daNote.noteData);
+						grpNoteSplashes.add(noteSplash);
+					}
+
 					opponentChar.playAnim(noteAnimations[Std.int(Math.abs(daNote.noteData))] + altAnim, true);
+					if (opponentChar.holdTimer > (Conductor.crochet / 1000) * opponentChar.maxHTimer && isCharacterSinging(opponentChar) && !opponentChar.specialTransition)
+						opponentChar.dance();
 
 					strum_2.forEach(function(spr:FlxSprite) {
 						if (Math.abs(daNote.noteData) == spr.ID) {
@@ -1467,7 +1467,7 @@ class PlayState extends MusicBeatState {
 			}
 		}
 
-		if (playerChar.holdTimer > (Conductor.crochet / 1000) * playerChar.maxHTimer && isCharacterSinging(playerChar))
+		if (playerChar.holdTimer > (Conductor.crochet / 1000) * playerChar.maxHTimer && isCharacterSinging(playerChar) && !playerChar.specialTransition)
 			playerChar.dance();
 
 		strum_1.forEach(function(spr:FlxSprite) {
@@ -1738,7 +1738,7 @@ class PlayState extends MusicBeatState {
 					if (character.curCharacter != 'gf' && character.specialTransition && character.animation.curAnim.name == 'idle')
 						character.dance();
 					else if (curBeat % gfSpeed == 0 && character.curCharacter == 'gf')
-						dad.dance();
+						character.dance();
 				}
 			}
 		}

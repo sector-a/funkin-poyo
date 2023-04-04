@@ -123,7 +123,7 @@ class OptionsMenu extends MusicBeatState {
 				//new FreeplayCutscenesOption("Cutscenes like videos and dialogues in Freeplay."),
 				new GhostTapOption("Toggle counting pressing a directional input when no arrow is there as a miss."),
 				new ResetButtonOption("Toggle pressing R to gameover."),
-				new PoyoOption("CURRENTLY TESTIN PLS HELP LOL"),
+				new PoyoOption("Play as Poyo in Week 1! or Nafri in Week 2."),
 				new ChangeKeyBindsOption(),
 				new BotPlay("A bot plays for you! (skill issue)")
 			]),
