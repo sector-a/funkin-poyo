@@ -722,13 +722,13 @@ class PlayState extends MusicBeatState {
 					cpuStrums.add(babyArrow);
 					if (FlxG.save.data.middleScroll && !FlxG.save.data.poyoMode)
 						babyArrow.visible = false;
-					else
+					else if (FlxG.save.data.middleScroll && FlxG.save.data.poyoMode)
 						babyArrow.x = (FlxG.width / 2) - (Note.swagWidth * 2) + (Note.swagWidth * i);
 				case 1:
 					playerStrums.add(babyArrow);
 					if (FlxG.save.data.middleScroll && !FlxG.save.data.poyoMode)
 						babyArrow.x = (FlxG.width / 2) - (Note.swagWidth * 2) + (Note.swagWidth * i);
-					else
+					else if (FlxG.save.data.middleScroll && FlxG.save.data.poyoMode)
 						babyArrow.visible = false;
 			}
 
