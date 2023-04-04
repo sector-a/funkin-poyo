@@ -1159,7 +1159,7 @@ class PlayState extends MusicBeatState {
 							altAnim = '-alt';
 					}
 
-					if (FlxG.save.data.noteSplashes && (FlxG.save.data.poyoMode || (SONG.song.toLowerCase() == 'epic' && FlxG.random.bool(68)) {
+					if (FlxG.save.data.noteSplashes && (FlxG.save.data.poyoMode || (SONG.song.toLowerCase() == 'epic' && FlxG.random.bool(68)))) {
 						var noteSplash:NoteSplash = grpNoteSplashes.recycle(NoteSplash);
 						noteSplash.setupNoteSplash(daNote.x, daNote.y, daNote.noteData);
 						grpNoteSplashes.add(noteSplash);
