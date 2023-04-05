@@ -94,6 +94,8 @@ class PlayState extends MusicBeatState {
 	public static var playerStrums:FlxTypedGroup<FlxSprite> = null;
 	public static var cpuStrums:FlxTypedGroup<FlxSprite> = null;
 
+	var camZoomPerNote:Bool = false;
+
 	//poyo mode things
 	var strum_1:FlxTypedGroup<FlxSprite> = null;
 	var strum_2:FlxTypedGroup<FlxSprite> = null;
@@ -1600,7 +1602,8 @@ class PlayState extends MusicBeatState {
 				1390,
 				1454,
 				1486,
-				1490
+				1490,
+				1518
 			]
 		];
 		super.stepHit();
@@ -1686,7 +1689,7 @@ class PlayState extends MusicBeatState {
 			if (curBeat == 152) {
 				manualCam = true;
 				camFollow.setPosition(stage.width / 2, stage.height / 2 - 125);
-				cameraZoom = 0.9;
+				cameraZoom = 1;
 			}
 
 			if (curBeat == 216) {
@@ -1719,10 +1722,30 @@ class PlayState extends MusicBeatState {
 				camGame.flash(FlxColor.WHITE, 0.4);
 				camGame.fade(FlxColor.BLACK, 0, true);
 			}
+
+			if (curBeat == 384)
+				camZoomPerNote = true;
+
+			if (curBeat == 448) {
+				cameraCanBop = true;
+				camZoomPerNote = false;
+				cameraZoom = 1;
+			}
+
+			if (curBeat == 512) {
+				cameraBop = 2;
+				manualCam = true;
+				cameraZoom = 1;
+				camFollow.setPosition(stage.width / 2, stage.height / 2 - 125);
+			}
+
+			if (curBeat == 576) {
+				manualCam = false;
+			}
 		}
 
 		if (curBeat % cameraBop == 0 && cameraCanBop)
-			camGame.zoom += 0.075;
+			camGame.zoom += 0.045;
 
 		if (generatedMusic)
 			notes.sort(FlxSort.byY, (FlxG.save.data.downscroll ? FlxSort.ASCENDING : FlxSort.DESCENDING));
