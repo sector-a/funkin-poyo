@@ -1161,7 +1161,7 @@ class PlayState extends MusicBeatState {
 
 					if ((FlxG.save.data.noteSplashes && (FlxG.save.data.poyoMode || (SONG.song.toLowerCase() == 'epic' && FlxG.random.bool(68)))) && !daNote.isSustainNote) {
 						var noteSplash:NoteSplash = grpNoteSplashes.recycle(NoteSplash);
-						noteSplash.setupNoteSplash(daNote.x, daNote.y, daNote.noteData, FlxG.save.data.poyoMode);
+						noteSplash.setupNoteSplash(daNote.x, daNote.y, daNote.noteData, true);
 						grpNoteSplashes.add(noteSplash);
 					}
 
