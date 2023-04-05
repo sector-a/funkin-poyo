@@ -383,23 +383,23 @@ class NotesBGAlpha extends Option {
 	}
 
 	private override function updateDisplay():String {
-		return "Notes BG Alpha: < " + FlxG.save.data.bgNotesAlpha + " >";
+		return "Note Background Overlay: < " + FlxG.save.data.bgNotesAlpha + " >";
 	}
 
 	override function right():Bool {
 		if (FlxG.save.data.bgNotesAlpha >= 1)
-			FlxG.save.data.bgNotesAlpha = 1;
-		else
-			FlxG.save.data.bgNotesAlpha = FlxG.save.data.bgNotesAlpha + 0.1;
+			return true;
+
+		FlxG.save.data.bgNotesAlpha = FlxG.save.data.bgNotesAlpha + 0.1;
 
 		return true;
 	}
 
 	override function left():Bool {
-		if (FlxG.save.data.bgNotesAlpha <= 0)
-			FlxG.save.data.bgNotesAlpha = 0;
-		else
-			FlxG.save.data.bgNotesAlpha = FlxG.save.data.bgNotesAlpha - 0.1;
+		if (FlxG.save.data.bgNotesAlpha <= 1)
+			return true;
+
+		FlxG.save.data.bgNotesAlpha = FlxG.save.data.bgNotesAlpha - 0.1;
 
 		return true;
 	}

@@ -42,8 +42,11 @@ class KadeEngineData {
 		if (FlxG.save.data.fpsCap == null)
 			FlxG.save.data.fpsCap = 120;
 
-		if (FlxG.save.data.fpsCap > 285 || FlxG.save.data.fpsCap < 60)
-			FlxG.save.data.fpsCap = 120;
+		if (FlxG.save.data.fpsCap > 285 || FlxG.save.data.fpsCap < 60) {
+			var value = 120;
+			#if !desktop value = 60; #end
+			FlxG.save.data.fpsCap = value;
+		}
 
 		if (FlxG.save.data.ghost == null)
 			FlxG.save.data.ghost = true;
