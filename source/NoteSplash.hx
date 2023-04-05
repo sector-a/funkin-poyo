@@ -21,14 +21,17 @@ class NoteSplash extends FlxSprite {
 		setupNoteSplash(x, y, noteData);
 	}
 
-	public function setupNoteSplash(x:Float, y:Float, noteData:Int = 0) {
+	public function setupNoteSplash(x:Float, y:Float, noteData:Int = 0, player:Bool = false) {
 		setPosition(x, y);
 		alpha = 0.6;
 
 		animation.play('note' + noteData + '-' + FlxG.random.int(0, 1), true);
 		updateHitbox();
 
-		offset.set(width * 0.3, height * 0.3);
+		if (!player)
+			offset.set(width * 0.3, height * 0.3);
+		else
+			offset.set(width * -0.3, height * 0.3);
 	}
 
 	override function update(elapsed:Float) {
