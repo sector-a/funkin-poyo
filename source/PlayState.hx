@@ -1161,7 +1161,7 @@ class PlayState extends MusicBeatState {
 
 					if ((FlxG.save.data.noteSplashes && (FlxG.save.data.poyoMode || (SONG.song.toLowerCase() == 'epic' && FlxG.random.bool(68)))) && !daNote.isSustainNote) {
 						var noteSplash:NoteSplash = grpNoteSplashes.recycle(NoteSplash);
-						noteSplash.setupNoteSplash(daNote.x, daNote.y, daNote.noteData, true);
+						noteSplash.setupNoteSplash(strum_2.members[Std.int(daNote.noteData)].getMidpoint().x, strum_2.members[Std.int(daNote.noteData)].getMidpoint().y, daNote.noteData);
 						grpNoteSplashes.add(noteSplash);
 					}
 
@@ -1372,7 +1372,7 @@ class PlayState extends MusicBeatState {
 		}
 		if (daRating == 'sick' && FlxG.save.data.noteSplashes) {
 			var noteSplash:NoteSplash = grpNoteSplashes.recycle(NoteSplash);
-			noteSplash.setupNoteSplash(daNote.x, daNote.y, daNote.noteData);
+			noteSplash.setupNoteSplash(strum_1.members[Std.int(daNote.noteData)].getMidpoint().x, strum_1.members[Std.int(daNote.noteData)].getMidpoint().y, daNote.noteData);
 			grpNoteSplashes.add(noteSplash);
 		}
 
