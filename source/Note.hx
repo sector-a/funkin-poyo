@@ -33,7 +33,7 @@ class Note extends FlxSprite {
 		if (prevNote == null)
 			prevNote = this;
 
-		randomHit = radius
+		randomHit = radius;
 
 		this.prevNote = prevNote;
 		isSustainNote = sustainNote;
