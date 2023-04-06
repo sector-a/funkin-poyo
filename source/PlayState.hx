@@ -1189,6 +1189,8 @@ class PlayState extends MusicBeatState {
 							for (vocals in [P1vocals, P2vocals])
 								vocals.volume = 1;
 
+					popUpScore(daNote, false);
+
 					daNote.active = false;
 
 					daNote.kill();
@@ -1340,7 +1342,7 @@ class PlayState extends MusicBeatState {
 		var daRating = daNote.rating;
 		var score:Float = 350;
 
-		var strumToUse:FlxTypedGroup<FlxSprite> = player ? strum_2 : strum_1
+		var strumToUse:FlxTypedGroup<FlxSprite> = player ? strum_2 : strum_1;
 
 		switch (daRating) {
 			case 'shit':
