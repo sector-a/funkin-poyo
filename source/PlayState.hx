@@ -1380,9 +1380,11 @@ class PlayState extends MusicBeatState {
 				}
 		}
 		if (daRating == 'sick' && FlxG.save.data.noteSplashes) {
-			var noteSplash:NoteSplash = grpNoteSplashes.recycle(NoteSplash);
-			noteSplash.setupNoteSplash(strumToUse.members[Std.int(daNote.noteData)].getMidpoint().x, strum_1.members[Std.int(daNote.noteData)].getMidpoint().y, daNote.noteData);
-			grpNoteSplashes.add(noteSplash);
+			if (player || (!player && !FlxG.save.data.middleScroll)) {
+				var noteSplash:NoteSplash = grpNoteSplashes.recycle(NoteSplash);
+				noteSplash.setupNoteSplash(strumToUse.members[Std.int(daNote.noteData)].getMidpoint().x, strum_1.members[Std.int(daNote.noteData)].getMidpoint().y, daNote.noteData);
+				grpNoteSplashes.add(noteSplash);
+			}
 		}
 
 		if (daRating != 'shit' || daRating != 'bad') {
