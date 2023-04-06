@@ -1259,6 +1259,23 @@ class PlayState extends MusicBeatState {
 	}
 
 	function endSong():Void {
+		if (songScore_2 > songScore) {
+			playerChar.stunned = true;
+
+			persistentUpdate = false;
+			persistentDraw = false;
+			paused = true;
+
+			if (SepVocalsNull)
+				vocals.stop();
+			else
+				for (vocals in [P1vocals, P2vocals])
+					vocals.stop();
+			FlxG.sound.music.stop();
+
+			openSubState(new GameOverSubstate(boyfriend.getScreenPosition().x, boyfriend.getScreenPosition().y));
+			return;
+		}
 		if (FlxG.save.data.fpsCap > 290)
 			(cast(Lib.current.getChildAt(0), Main)).setFPSCap(290);
 
