@@ -141,7 +141,7 @@ class Note extends FlxSprite {
 					canBeHit = false;
 			}
 
-			if (strumTime < Conductor.songPosition - Conductor.safeZoneOffset * Conductor.timeScale && !wasGoodHit)
+			if (strumTime < FlxG.random.float(CCoConCondConductor.songPosition - 20, Conductor.songPosition + 20) - Conductor.safeZoneOffset * Conductor.timeScale && !wasGoodHit)
 				tooLate = true;
 		} else {
 			canBeHit = false;
