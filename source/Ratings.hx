@@ -99,7 +99,7 @@ class Ratings {
 		return "sick";
 	}
 
-	public static function CalculateRanking(score:Int, scoreDef:Int, accuracy:Float):String {
+	public static function CalculateRanking(score:Int, scoreDef:Int, accuracy:Float, score2:Int):String {
 		return (!FlxG.save.data.botplay ? "Score:"
 			+ (Conductor.safeFrames != 10 ? score + " (" + scoreDef + ")" : "" + score)
 			+ " | Misses:"
@@ -109,6 +109,6 @@ class Ratings {
 			+ " | "
 			+ GenerateLetterRank(accuracy) : "")
 			+ "\nOpponent Score: "
-			+ PlayState.songScore_2;
+			+ score2;
 	}
 }

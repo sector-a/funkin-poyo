@@ -911,7 +911,7 @@ class PlayState extends MusicBeatState {
 		var scoreTxtChecked:Bool = false;
 
 		if (FlxG.save.data.accuracyDisplay) {
-			scoreTxt.text = Ratings.CalculateRanking(songScore, songScoreDef, accuracy);
+			scoreTxt.text = Ratings.CalculateRanking(songScore, songScoreDef, accuracy, songScore_2);
 			scoreTxt.screenCenter(X);
 
 			scoreTxtChecked = true;
@@ -1388,10 +1388,13 @@ class PlayState extends MusicBeatState {
 		}
 
 		if (daRating != 'shit' || daRating != 'bad') {
-			var addOnto:FlxBasic = player ? songScore_2 : songScore;
 			var roundUp = Math.round(score);
 			if (!player) roundUp -= 4;
-			addOnto += roundUp;
+			if (!player)
+				songScore_2 += roundUp;
+			else
+				songScore += roundUp;
+
 			if (player) songScoreDef += Math.round(ConvertScore.convertScore(noteDiff));
 		}
 
