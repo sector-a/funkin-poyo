@@ -1472,7 +1472,7 @@ class PlayState extends MusicBeatState {
 					goodNoteHit(note);
 					continue;
 				}
-				if ((FlxG.save.data.downscroll && note.y >= FlxG.height) || (!FlxG.save.data.downscroll && note.y <= 0 - daNote.frameHeight)) {
+				if ((FlxG.save.data.downscroll && note.y >= FlxG.height) || (!FlxG.save.data.downscroll && note.y <= 0 - note.frameHeight)) {
 					noteMiss(note);
 				}
 			}
