@@ -1324,7 +1324,7 @@ class PlayState extends MusicBeatState {
 
 	var hits:Array<Float> = [];
 
-	private function popUpScore(daNote:Note):Void {
+	private function popUpScore(daNote:Note, player:Bool = true):Void {
 		var noteDiff:Float = Math.abs(Conductor.songPosition - daNote.strumTime);
 		var wife:Float = EtternaFunctions.wife3(noteDiff, Conductor.timeScale);
 		if (SONG.needsVoices)
@@ -1336,49 +1336,54 @@ class PlayState extends MusicBeatState {
 
 		var placement:String = Std.string(combo);
 
-		var coolText:FlxText = new FlxText(0, 0, 0, placement, 32);
-		coolText.screenCenter();
-		coolText.x = FlxG.width * 0.55;
-		coolText.y -= 350;
-		coolText.cameras = [camHUD];
-
 		var rating:FlxSprite = new FlxSprite();
 		var daRating = daNote.rating;
 		var score:Float = 350;
 
+		var strumToUse:FlxTypedGroup<FlxSprite> = player ? strum_2 : strum_1
+
 		switch (daRating) {
 			case 'shit':
+				daRating = 'shit';
 				score = -300;
-				combo = 0;
-				health -= 0.2;
-				shits++;
-				totalNotesHit += 0.25;
+				if (player) {
+					combo = 0;
+					health -= 0.2;
+					shits++;
+					totalNotesHit += 0.25;
+				}
 			case 'bad':
 				daRating = 'bad';
 				score = 0;
-				health -= 0.06;
-				bads++;
-				totalNotesHit += 0.50;
+				if (player) {
+					health -= 0.06;
+					bads++;
+					totalNotesHit += 0.50;
+				}
 			case 'good':
 				daRating = 'good';
 				score = 200;
-				goods++;
-				if (health < 2)
-					health += 0.04;
-				totalNotesHit += 0.75;
+				if (player) {
+					goods++;
+					if (health < 2)
+						health += 0.04;
+					totalNotesHit += 0.75;
+				}
 			case 'sick':
-				if (health < 2)
-					health += 0.1;
-				totalNotesHit += 1;
-				sicks++;
+				if (player) {
+					if (health < 2)
+						health += 0.1;
+					totalNotesHit += 1;
+					sicks++;
+				}
 		}
 		if (daRating == 'sick' && FlxG.save.data.noteSplashes) {
 			var noteSplash:NoteSplash = grpNoteSplashes.recycle(NoteSplash);
-			noteSplash.setupNoteSplash(strum_1.members[Std.int(daNote.noteData)].getMidpoint().x, strum_1.members[Std.int(daNote.noteData)].getMidpoint().y, daNote.noteData);
+			noteSplash.setupNoteSplash(strumToUse.members[Std.int(daNote.noteData)].getMidpoint().x, strum_1.members[Std.int(daNote.noteData)].getMidpoint().y, daNote.noteData);
 			grpNoteSplashes.add(noteSplash);
 		}
 
-		if (daRating != 'shit' || daRating != 'bad') {
+		if ((daRating != 'shit' || daRating != 'bad') && player) {
 			songScore += Math.round(score);
 			songScoreDef += Math.round(ConvertScore.convertScore(noteDiff));
 		}
@@ -1389,29 +1394,26 @@ class PlayState extends MusicBeatState {
 			}
 			rating.loadGraphic(Paths.image(daRating, 'shared'));
 			rating.screenCenter();
+			rating.x = player ? (FlxG.save.data.poyoMode ? 200 : -200) : (FlxG.save.data.poyoMode ? -200 : 200)
 			rating.y -= 50;
 			rating.acceleration.y = 550;
 			rating.velocity.y -= FlxG.random.int(140, 175);
 
-			var comboSpr:FlxSprite = new FlxSprite().loadGraphic(Paths.image('combo', 'shared'));
-			comboSpr.screenCenter();
-			comboSpr.x = rating.x;
-			comboSpr.y = rating.y + 100;
-			comboSpr.acceleration.y = 600;
-			comboSpr.velocity.y -= 150;
 			if (!FlxG.save.data.botplay)
 				add(rating);
 
-			lastRating = rating;
-
 			rating.setGraphicSize(Std.int(rating.width * 0.7));
 			rating.antialiasing = true;
-			comboSpr.setGraphicSize(Std.int(comboSpr.width * 0.7));
-			comboSpr.antialiasing = true;
-			comboSpr.updateHitbox();
 			rating.updateHitbox();
-			comboSpr.cameras = [camHUD];
 			rating.cameras = [camHUD];
+
+			FlxTween.tween(rating, {alpha: 0}, 0.2, {
+				onComplete: function(tween:FlxTween)
+				{
+					rating.destroy();
+				},
+				startDelay: Conductor.crochet * 0.001
+			});
 		}
 		curSection += 1;
 	}
