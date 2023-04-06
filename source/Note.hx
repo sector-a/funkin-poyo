@@ -21,7 +21,7 @@ class Note extends FlxSprite {
 	public var prevNote:Note;
 	public var sustainLength:Float = 0;
 	public var isSustainNote:Bool = false;
-	public var randomHit:Float = 20
+	public var randomHit:Float = 20;
 
 	public static var swagWidth:Float = 160 * 0.7;
 
