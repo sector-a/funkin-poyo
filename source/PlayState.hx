@@ -1396,7 +1396,7 @@ class PlayState extends MusicBeatState {
 			}
 			rating.loadGraphic(Paths.image(daRating, 'shared'));
 			rating.screenCenter();
-			rating.x = player ? (FlxG.save.data.poyoMode ? 200 : -200) : (FlxG.save.data.poyoMode ? -200 : 200)
+			rating.x = player ? (FlxG.save.data.poyoMode ? 200 : -200) : (FlxG.save.data.poyoMode ? -200 : 200);
 			rating.y -= 50;
 			rating.acceleration.y = 550;
 			rating.velocity.y -= FlxG.random.int(140, 175);
