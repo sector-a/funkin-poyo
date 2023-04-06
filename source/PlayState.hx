@@ -1229,8 +1229,6 @@ class PlayState extends MusicBeatState {
 							vocals.volume = 0;
 						else
 							P1vocals.volume = 0;
-
-						noteMiss(daNote.noteData, daNote);
 					}
 
 					daNote.visible = false;
@@ -1343,7 +1341,7 @@ class PlayState extends MusicBeatState {
 		var daRating = daNote.rating;
 		var score:Float = 350;
 
-		var strumToUse:FlxTypedGroup<FlxSprite> = player ? strum_2 : strum_1;
+		var strumToUse:FlxTypedGroup<FlxSprite> = player ? strum_1 : strum_2;
 
 		switch (daRating) {
 			case 'shit':
@@ -1403,8 +1401,7 @@ class PlayState extends MusicBeatState {
 				lastRating.kill();
 			}
 			rating.loadGraphic(Paths.image(daRating, 'shared'));
-			rating.screenCenter();
-			rating.x += player ? (FlxG.save.data.poyoMode ? -450 : 450) : (FlxG.save.data.poyoMode ? 450 : -450);
+			rating.x = player ? (FlxG.save.data.poyoMode ? 450 : FlxG.width - rating.width - 450) : (FlxG.save.data.poyoMode ? FlxG.width - rating.width - 450 : 450);
 			rating.y -= 50;
 			rating.acceleration.y = 550;
 			rating.velocity.y -= FlxG.random.int(140, 175);
@@ -1476,7 +1473,7 @@ class PlayState extends MusicBeatState {
 					continue;
 				}
 				if ((FlxG.save.data.downscroll && daNote.y >= FlxG.height) || (!FlxG.save.data.downscroll && daNote.y <= 0 - daNote.frameHeight)) {
-					noteMiss(daNote);
+					noteMiss(note);
 				}
 			}
 		}
