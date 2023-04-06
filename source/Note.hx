@@ -27,13 +27,14 @@ class Note extends FlxSprite {
 
 	public var rating:String = "shit";
 
-	public function new(strumTime:Float, noteData:Int, radius:Float, ?prevNote:Note, ?sustainNote:Bool = false) {
+	public function new(strumTime:Float, noteData:Int, ?radius:Float, ?prevNote:Note, ?sustainNote:Bool = false) {
 		super();
 
 		if (prevNote == null)
 			prevNote = this;
 
-		randomHit = radius;
+		if (radius != null)
+			randomHit = radius;
 
 		this.prevNote = prevNote;
 		isSustainNote = sustainNote;
@@ -149,7 +150,10 @@ class Note extends FlxSprite {
 		} else {
 			canBeHit = false;
 
-			if (strumTime <= Conductor.songPosition + radius)
+			var time = Conductor.songPosition:
+			if (radius != null)
+				time += radius;
+			if (strumTime <= time)
 				wasGoodHit = true;
 		}
 
