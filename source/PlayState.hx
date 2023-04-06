@@ -103,6 +103,8 @@ class PlayState extends MusicBeatState {
 	var playerChar:Character;
 	var opponentChar:Character;
 
+	var songScore_2:Int = 0;
+
 	private var curSong:String = "";
 
 	private var gfSpeed:Int = 1;
@@ -914,7 +916,7 @@ class PlayState extends MusicBeatState {
 
 			scoreTxtChecked = true;
 		} else {
-			scoreTxt.text = "Score: " + songScore;
+			scoreTxt.text = "Score: " + songScore + '\n Opponent Score: ' + songScore_2;
 			scoreTxt.screenCenter(X);
 			scoreTxt.x += 125;
 
@@ -1161,12 +1163,6 @@ class PlayState extends MusicBeatState {
 							altAnim = '-alt';
 					}
 
-					if ((FlxG.save.data.noteSplashes && (FlxG.save.data.poyoMode || (SONG.song.toLowerCase() == 'epic' && FlxG.random.bool(68)))) && !daNote.isSustainNote) {
-						var noteSplash:NoteSplash = grpNoteSplashes.recycle(NoteSplash);
-						noteSplash.setupNoteSplash(strum_2.members[Std.int(daNote.noteData)].getMidpoint().x, strum_2.members[Std.int(daNote.noteData)].getMidpoint().y, daNote.noteData);
-						grpNoteSplashes.add(noteSplash);
-					}
-
 					opponentChar.playAnim(noteAnimations[Std.int(Math.abs(daNote.noteData))] + altAnim, true);
 					opponentChar.holdTimer = 0;
 
@@ -1347,7 +1343,7 @@ class PlayState extends MusicBeatState {
 		var daRating = daNote.rating;
 		var score:Float = 350;
 
-		var strumToUse:FlxTypedGroup<FlxSprite> = player ? strum_1 : strum_2;
+		var strumToUse:FlxTypedGroup<FlxSprite> = player ? strum_2 : strum_1;
 
 		switch (daRating) {
 			case 'shit':
@@ -1391,9 +1387,12 @@ class PlayState extends MusicBeatState {
 			grpNoteSplashes.add(noteSplash);
 		}
 
-		if ((daRating != 'shit' || daRating != 'bad') && player) {
-			songScore += Math.round(score);
-			songScoreDef += Math.round(ConvertScore.convertScore(noteDiff));
+		if (daRating != 'shit' || daRating != 'bad') {
+			var addOnto:FlxBasic = player ? songScore_2 : songScore;
+			var roundUp = Math.round(score);
+			if (!player) roundUp -= 4;
+			addOnto += roundUp;
+			if (player) songScoreDef += Math.round(ConvertScore.convertScore(noteDiff));
 		}
 
 		if (FlxG.save.data.ratings) {
@@ -1402,7 +1401,7 @@ class PlayState extends MusicBeatState {
 			}
 			rating.loadGraphic(Paths.image(daRating, 'shared'));
 			rating.screenCenter();
-			rating.x += player ? (FlxG.save.data.poyoMode ? 200 : -200) : (FlxG.save.data.poyoMode ? -200 : 200);
+			rating.x += player ? (FlxG.save.data.poyoMode ? -450 : 450) : (FlxG.save.data.poyoMode ? 450 : -450);
 			rating.y -= 50;
 			rating.acceleration.y = 550;
 			rating.velocity.y -= FlxG.random.int(140, 175);

@@ -107,6 +107,8 @@ class Ratings {
 			+ " | Accuracy:"
 			+ (FlxG.save.data.botplay ? "N/A" : HelperFunctions.truncateFloat(accuracy, 2) + " %")
 			+ " | "
-			+ GenerateLetterRank(accuracy) : "");
+			+ GenerateLetterRank(accuracy) : "")
+			+ "\nOpponent Score: "
+			+ PlayState.songScore_2;
 	}
 }
