@@ -596,8 +596,8 @@ class PlayState extends MusicBeatState {
 					oldNote = unspawnNotes[Std.int(unspawnNotes.length - 1)];
 				else
 					oldNote = null;
-
-				var swagNote:Note = new Note(daStrumTime, daNoteData, oldNote);
+//RADIUSSHIT LOL
+				var swagNote:Note = new Note(daStrumTime, daNoteData, oldNote, FlxG.random.float(-20, 20);
 				swagNote.sustainLength = songNotes[2];
 				swagNote.scrollFactor.set(0, 0);
 
