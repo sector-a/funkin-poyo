@@ -1189,7 +1189,12 @@ class PlayState extends MusicBeatState {
 							for (vocals in [P1vocals, P2vocals])
 								vocals.volume = 1;
 
-					popUpScore(daNote, false);
+					if (!daNote.isSustainNote) {
+						var noteDiff:Float = Math.abs(daNote.strumTime - Conductor.songPosition);
+						daNote.rating = Ratings.CalculateRating(noteDiff);
+
+						popUpScore(daNote, false);
+					}
 
 					daNote.active = false;
 
@@ -1342,7 +1347,7 @@ class PlayState extends MusicBeatState {
 		var daRating = daNote.rating;
 		var score:Float = 350;
 
-		var strumToUse:FlxTypedGroup<FlxSprite> = player ? strum_2 : strum_1;
+		var strumToUse:FlxTypedGroup<FlxSprite> = player ? strum_1 : strum_2;
 
 		switch (daRating) {
 			case 'shit':
@@ -1372,6 +1377,7 @@ class PlayState extends MusicBeatState {
 					totalNotesHit += 0.75;
 				}
 			case 'sick':
+				daRating = 'sick';
 				if (player) {
 					if (health < 2)
 						health += 0.1;
@@ -1396,7 +1402,7 @@ class PlayState extends MusicBeatState {
 			}
 			rating.loadGraphic(Paths.image(daRating, 'shared'));
 			rating.screenCenter();
-			rating.x = player ? (FlxG.save.data.poyoMode ? 200 : -200) : (FlxG.save.data.poyoMode ? -200 : 200);
+			rating.x += player ? (FlxG.save.data.poyoMode ? 200 : -200) : (FlxG.save.data.poyoMode ? -200 : 200);
 			rating.y -= 50;
 			rating.acceleration.y = 550;
 			rating.velocity.y -= FlxG.random.int(140, 175);
