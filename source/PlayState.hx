@@ -1475,6 +1475,9 @@ class PlayState extends MusicBeatState {
 					goodNoteHit(note);
 					continue;
 				}
+				if ((FlxG.save.data.downscroll && daNote.y >= FlxG.height) || (!FlxG.save.data.downscroll && daNote.y <= 0 - daNote.frameHeight)) {
+					noteMiss(daNote);
+				}
 			}
 		}
 
@@ -1498,13 +1501,14 @@ class PlayState extends MusicBeatState {
 		});
 	}
 
-	function noteMiss(direction:Int = 1, daNote:Note):Void {
+	function noteMiss(daNote:Note):Void {
 		playerChar.holdTimer = 0;
 		if (!boyfriend.stunned) {
 			health -= 0.04;
 			if (combo > 5 && gf.animOffsets.exists('sad') && !FlxG.save.data.poyoMode) {
 				gf.playAnim('sad');
 			}
+			daNote.tooLate = true;
 			combo = 0;
 			misses++;
 
@@ -1512,7 +1516,7 @@ class PlayState extends MusicBeatState {
 
 			FlxG.sound.play(Paths.soundRandom('missnote', 1, 3, 'shared'), FlxG.random.float(0.1, 0.2));
 
-			playerChar.playAnim(noteAnimations[Std.int(direction)] + '-miss', true);
+			playerChar.playAnim(noteAnimations[Std.int(daNote.noteData)] + '-miss', true);
 
 			updateAccuracy();
 		}
