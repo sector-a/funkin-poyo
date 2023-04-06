@@ -150,7 +150,7 @@ class Note extends FlxSprite {
 		} else {
 			canBeHit = false;
 
-			var time = Conductor.songPosition:
+			var time = Conductor.songPosition;
 			if (radius != null)
 				time += radius;
 			if (strumTime <= time)
