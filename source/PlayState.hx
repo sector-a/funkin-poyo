@@ -1191,7 +1191,7 @@ class PlayState extends MusicBeatState {
 
 						popUpScore(daNote, false);
 						if (camZoomPerNote)
-							cameraZoom += 0.015;
+							cameraZoom += 0.002;
 					}
 
 					daNote.active = false;
@@ -1408,7 +1408,7 @@ class PlayState extends MusicBeatState {
 
 		if (daRating != 'shit' || daRating != 'bad') {
 			var roundUp = Math.round(score);
-			if (!player) roundUp -= 4;
+			if (!player) roundUp -= 2;
 			if (!player)
 				songScore_2 += roundUp;
 			else
@@ -1585,7 +1585,7 @@ class PlayState extends MusicBeatState {
 		if (!note.isSustainNote) {
 			notesHitArray.unshift(Date.now());
 			if (camZoomPerNote)
-				cameraZoom += 0.015;
+				cameraZoom += 0.002;
 		}
 
 		if (!resetMashViolation && mashViolations >= 1)
