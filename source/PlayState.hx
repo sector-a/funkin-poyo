@@ -1779,6 +1779,13 @@ class PlayState extends MusicBeatState {
 			if (curBeat == 576) {
 				manualCam = false;
 			}
+
+			if (curBeat == 640) {
+				cameraZoom = 1.25;
+				camGame.fade(FlxColor.BLACK, Conductor.crochet / 250);
+				cameraBop = 2;
+				gfSpeed = 2;
+			}
 		}
 
 		if (curBeat % cameraBop == 0 && cameraCanBop)

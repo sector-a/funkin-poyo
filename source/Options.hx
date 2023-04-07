@@ -396,7 +396,7 @@ class NotesBGAlpha extends Option {
 	}
 
 	override function left():Bool {
-		if (FlxG.save.data.bgNotesAlpha <= 1)
+		if (FlxG.save.data.bgNotesAlpha <= 0)
 			return true;
 
 		FlxG.save.data.bgNotesAlpha = FlxG.save.data.bgNotesAlpha - 0.1;

@@ -39,8 +39,11 @@ class KadeEngineData {
 		if (FlxG.save.data.fps == null)
 			FlxG.save.data.fps = false;
 
-		if (FlxG.save.data.fpsCap == null)
-			FlxG.save.data.fpsCap = 120;
+		if (FlxG.save.data.fpsCap == null) {
+			var value:Int = 120;
+			#if mobile value = 60; #end
+			FlxG.save.data.fpsCap = value;
+		}
 
 		if (FlxG.save.data.fpsCap > 285 || FlxG.save.data.fpsCap < 60) {
 			var value = 120;
