@@ -1190,6 +1190,8 @@ class PlayState extends MusicBeatState {
 						daNote.rating = Ratings.CalculateRating(noteDiff);
 
 						popUpScore(daNote, false);
+						if (camZoomPerNote)
+							cameraZoom += 0.015;
 					}
 
 					daNote.active = false;
@@ -1580,8 +1582,11 @@ class PlayState extends MusicBeatState {
 		var noteDiff:Float = Math.abs(note.strumTime - Conductor.songPosition);
 
 		note.rating = Ratings.CalculateRating(noteDiff);
-		if (!note.isSustainNote)
+		if (!note.isSustainNote) {
 			notesHitArray.unshift(Date.now());
+			if (camZoomPerNote)
+				cameraZoom += 0.015;
+		}
 
 		if (!resetMashViolation && mashViolations >= 1)
 			mashViolations--;
