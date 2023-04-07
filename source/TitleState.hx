@@ -108,12 +108,12 @@ class TitleState extends MusicBeatState {
 		add(logoBl);
 
 		titleText = new FlxSprite(0, FlxG.height * 0.8);
-		titleText.screenCenter(X);
 		titleText.frames = Paths.getSparrowAtlas('titleEnter');
 		titleText.animation.addByPrefix('idle', "Press Enter to Begin", 24);
 		titleText.animation.addByPrefix('press', "ENTER PRESSED", 24);
 		titleText.antialiasing = true;
 		titleText.animation.play('idle');
+		titleText.screenCenter(X);
 		titleText.updateHitbox();
 		add(titleText);
 

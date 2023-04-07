@@ -739,9 +739,9 @@ class PlayState extends MusicBeatState {
 			babyArrow.animation.play('static');
 			if (!FlxG.save.data.middleScroll) {
 				if (player == 1)
-					babyArrow.x += 20;
+					babyArrow.x += 45;
 				else
-					babyArrow.x = (FlxG.width - (Note.swagWidth * i)) - 20;
+					babyArrow.x = (FlxG.width - (Note.swagWidth * 4)) - 45;
 			}
 
 			strum_2.forEach(function(spr:FlxSprite) {
