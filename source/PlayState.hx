@@ -741,7 +741,7 @@ class PlayState extends MusicBeatState {
 				if (player == 1)
 					babyArrow.x += 45;
 				else
-					babyArrow.x = (FlxG.width - (Note.swagWidth * 4)) - 45;
+					babyArrow.x = (FlxG.width - (Note.swagWidth * 4) + (Note.swagWidth * i)) - 45;
 			}
 
 			strum_2.forEach(function(spr:FlxSprite) {
