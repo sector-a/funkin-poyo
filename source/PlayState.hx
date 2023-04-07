@@ -738,7 +738,7 @@ class PlayState extends MusicBeatState {
 
 			babyArrow.animation.play('static');
 			if (!FlxG.save.data.middleScroll) {
-				if (!player)
+				if (player == 1)
 					babyArrow.x += 20;
 				else
 					babyArrow.x = (FlxG.width - (Note.swagWidth * i)) - 20;
